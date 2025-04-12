@@ -163,7 +163,7 @@
                 <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
                     Probability Theory and Mathematical Statistics (90)</li>
                 <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
-                    Operation Research (basic & advanced) (90): Dynamic Programming and Markov Decision Process, leading to interest in RL modelling</li>
+                    Operation Research (basic & advanced) (90): dynamic programming and Markov Decision Process, leading to interest in RL modelling</li>
                 <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
                     Linear Algebra (82): failed to get a higher grade, but reviewed many times afterwards</li>
                     <ul>
@@ -210,7 +210,7 @@
                 <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
                     SQL (95)</li>
                 <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
-                    Deep Learning: currengly learning; including neural networks/DRL (bandits, policy gradient)/Transformer/RAG, training on mathematical proof and coding projects, final project of RL</li>
+                    Deep Learning: currengly learning; including neural networks/DRL (neural bandits, policy gradient)/Transformer/RAG, training on mathematical proof and coding projects, final project of RL</li>
                 <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
                     Reinforcement Learning: currently learning; a systematic course, training on coding and mathematical proof</li>
                 <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
@@ -225,11 +225,28 @@
     <div class="slide" id="slide4">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
-            <h1>Technical Competencies</h1>
-            <h2>Research and Analytical Skills</h2>
+            <h1>Research Experience (1)</h1>
+            <h2>Optimizing Ride-hailing EV Fleet Management Considering Battery Degradation: an MARL Approach</h2>
             <ul>
-                <li>Programming Languages:</li>
-                <li>Software Tools:</li>
+                <li>
+                    Set up an MDP for the ride-hailing scenario, a process where modelling the whole story and designing reward is the focus
+                    <button onclick="toggleDetails('modellingDetails')" class="details-button">View Details</button>
+                    <div id="modellingDetails" class="details-content" style="display: none;">
+                        <ul>
+                            <li>状态空间：包括车辆位置、电池电量、订单信息等</li>
+                        </ul>
+                    </div>
+                    <script>
+                        function toggleDetails(id) {
+                            var content = document.getElementById(id);
+                            if (content.style.display === "none") {
+                                content.style.display = "block";
+                            } else {
+                                content.style.display = "none";
+                            }
+                        }
+                    </script>
+                </li>                
                 <li>Research Methodologies:</li>
                 <li>Data Analysis Techniques:</li>
             </ul>
