@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yao's Presentation</title>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <style>
         body, html {
             margin: 0;
@@ -128,6 +129,7 @@
             font-size: 14px;
             color: #666;
         }
+        
     </style>
 </head>
 <body>
@@ -152,7 +154,8 @@
                                 <li>GPA: 4.8/5.0</li>
                                 <li>Award of Commendation List</li>
                             </ul>
-                        <li>Research Interest: Reinforcement Learning, Optimization and Control</li>
+                        <li>Research Interest: Reinforcement Learning, Preference Learning</li>
+                        <li>Personal Advantages: learning fast, searching and organizing information well</li>
                     </ul>
                 </div>
                 <div style="flex: 1; text-align: center;">
@@ -238,7 +241,7 @@
     <div class="slide" id="slide4">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
-            <h1>Research Experience (1)</h1>
+            <h1>Research Experience Related to RL</h1>
             <h2>Optimizing Ride-hailing EV Fleet Management Considering Battery Degradation: an MARL Approach</h2>
             <ul>
                 <li>
@@ -266,7 +269,7 @@
                 <li>Research Methodologies: Multi-agent reinforcement learning, utilizing deep Q networks</li>
                 <li>Extension: apply A2C and DDPG to learn the optimal charging threshold</li>
             </ul>
-            <a href="#" class="figure-link" onclick="openJPG('figure/Excellent_FYP_Poster.jpg')">View Poster</a>
+            <a href="#" class="figure-link" onclick="openJPG('figure/Excellent_FYP_Poster.jpg')">View My Poster</a>
         </div>
         <div class="slide-number">4/10</div>
     </div>
@@ -275,8 +278,8 @@
     <div class="slide" id="slide5">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
-            <h1>Research Experience (1)</h1>
-            <h2>Primary Research Project</h2>
+            <h1>Paper Description (1)</h1>
+            <h2>Results Overview</h2>
             <ul>
                 <li>Research Objectives:</li>
                 <li>Methodological Approach:</li>
@@ -294,17 +297,19 @@
     <div class="slide" id="slide6">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
-            <h1>Research Experience (2)</h1>
-            <h2>Secondary Research Project</h2>
+            <h1>Paper Description (2)</h1>
+            <h2>Proof On Pairwise Comparison</h2>
             <ul>
-                <li>Research Context:</li>
+                <p>$$||\hat\theta_{MLE}-\hat\theta^*||_{\Sigma_{\mathcal{D}}+\lambda I}\leq C\cdot \sqrt{\frac{d+\log(1/\delta)}{\gamma^2n}+\lambda B^2}$$</p>
                 <li>Experimental Design:</li>
                 <li>Results and Analysis:</li>
                 <li>Implications for Future Research:</li>
             </ul>
-            <div class="figure-placeholder">
-                Insert research diagram, data visualization, or relevant figure here
-            </div>
+            <!-- <div style="text-align: center; margin: 20px 0;">
+                $$P(i \succ j) = \frac{e^{u_i}}{e^{u_i} + e^{u_j}} = \frac{1}{1 + e^{u_j - u_i}}$$
+                $$\mathcal{L}(\mathbf{u}) = \sum_{(i,j) \in \mathcal{D}} \log P(i \succ j) = \sum_{(i,j) \in \mathcal{D}} \log \frac{e^{u_i}}{e^{u_i} + e^{u_j}}$$
+                $$\hat{\mathbf{u}} = \arg\max_{\mathbf{u}} \mathcal{L}(\mathbf{u})$$
+            </div> -->
         </div>
         <div class="slide-number">6/10</div>
     </div>
@@ -313,8 +318,8 @@
     <div class="slide" id="slide7">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
-            <h1>Publication Overview</h1>
-            <h2>Paper Title</h2>
+            <h1>Paper Description (3)</h1>
+            <h2>Proof On K-wise Comparison</h2>
             <ul>
                 <li>Journal/Conference:</li>
                 <li>Publication Date:</li>
@@ -331,8 +336,8 @@
     <div class="slide" id="slide8">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
-            <h1>Methodology and Experimental Design</h1>
-            <h2>Research Methods</h2>
+            <h1>Paper Description (4)</h1>
+            <h2>Proof On MDP (most general): when data is large enough, the true MLE can yield better policy</h2>
             <ul>
                 <li>Method 1: Detailed description</li>
                 <li>Method 2: Detailed description</li>
@@ -348,12 +353,13 @@
     <div class="slide" id="slide9">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
-            <h1>Results and Discussion</h1>
-            <h2>Key Findings</h2>
+            <h1>Paper Description (5)</h1>
+            <h2>Summary</h2>
             <ul>
                 <li>Primary Result:</li>
                 <li>Secondary Results:</li>
                 <li>Limitations:</li>
+                <li>Preliminary Knowledge: High-Dimensional Probability</li>
             </ul>
             <h2>Research Impact</h2>
             <p>Discussion of the significance of findings, theoretical implications, and contributions to the field...</p>
@@ -367,22 +373,9 @@
     <div class="slide" id="slide10">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
-            <h1>Conclusion and Future Work</h1>
-            <h2>Academic Achievements</h2>
-            <ul>
-                <li>Achievement 1</li>
-                <li>Achievement 2</li>
-                <li>Achievement 3</li>
-            </ul>
-            <h2>Research Agenda</h2>
-            <ul>
-                <li>Short-term Research Goals</li>
-                <li>Long-term Research Trajectory</li>
-            </ul>
-            <h2>Contact Information</h2>
-            <p>Email:</p>
-            <p>Academic Profile:</p>
-            <p>Research Group Website:</p>
+            <div style="display: flex; justify-content: center; align-items: center; height: 70vh; margin: 0;">
+                <h1 style="font-size: 2.5em; font-weight: bold; text-align: center;">Thank You!</h1>
+            </div>
         </div>
         <div class="slide-number">10/10</div>
     </div>
