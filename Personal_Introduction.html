@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Presentation</title>
+    <title>Yao's Presentation</title>
     <style>
         body, html {
             margin: 0;
@@ -120,44 +120,110 @@
 <body>
     <!-- Slide 1: Personal Introduction -->
     <div class="slide active" id="slide1">
-        <div class="header">Academic Presentation</div>
+        <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Personal Introduction</h1>
-            <div class="figure-placeholder">
-                Insert personal photograph or relevant image here
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
+                <div style="flex: 2;">
+                    <h2>Background Information</h2>
+                    <ul>
+                        <li>Name: Yao Yao (姚瑶)</li>
+                        <li>B.S. in Management Science and Engineering, Huazhong University of Science and Technology</li>
+                            <ul>
+                                <li>GPA: 3.87/4.0</li>
+                                <li>Experimental Program (实验班), training on Mathematics and Programming</li>
+                                <li>Honor of Outstanding Graduate</li>
+                            </ul>
+                        <li>M.S. in Industrial Systems Engineering, National University of Singapore</li>
+                            <ul>
+                                <li>GPA: 4.8/5.0</li>
+                                <li>Award of Commendation List</li>
+                            </ul>
+                        <li>Research Interest: Reinforcement Learning, Optimization and Control</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; text-align: center;">
+                    <img src="figure/profile.png" alt="Personal Profile Picture" style="max-width: 100%; max-height: 300px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                </div>
             </div>
-            <div>
-                <h2>Background Information</h2>
-                <ul>
-                    <li>Name:</li>
-                    <li>Field of Study:</li>
-                    <li>Institution:</li>
-                    <li>Research Focus:</li>
-                </ul>
-            </div>
+            
         </div>
         <div class="slide-number">1/10</div>
     </div>
 
     <!-- Slide 2: Learned Courses and Skills (1) -->
     <div class="slide" id="slide2">
-        <div class="header">Academic Presentation</div>
+        <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Academic Coursework (1)</h1>
-            <h2>Core Curriculum</h2>
+            <h2>Core Curriculum (Mathematics)</h2>
             <ul>
-                <li>Course 1: Brief description of content and relevance to research</li>
-                <li>Course 2: Brief description of content and relevance to research</li>
-                <li>Course 3: Brief description of content and relevance to research</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                    Calculus (90)</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                    Probability Theory and Mathematical Statistics (90)</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                    Operation Research (basic & advanced) (90): Dynamic Programming and Markov Decision Process, leading to interest in RL modelling</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                    Linear Algebra (82): failed to get a higher grade, but reviewed many times afterwards</li>
+                    <ul>
+                        <li>online learning: MIT 18.06 by Gilbert Strang</li>
+                        <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUSRI</span>
+                            Numerical Methods in Engineering (95.5): relevant to linear algebra</li>
+                        <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
+                            Theory and Algorithms for Nonlinear Optimization (B+): norms, gradient methods, convergence proof, coding with matrices</li>
+                    </ul>
+                <li>Statistics relevant:</li>
+                    <ul>
+                        <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                            Econometrics (basic & advanced) (93): linear regression, logit regression, hypothesis test</li>
+                        <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                            Management Statistics (90): same as above</li>
+                        <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUSRI</span>
+                            Modelling and Analytics (97.3): regression & classification, supervised & unsupervised learning</li>
+                        <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
+                            Stochastic Models and Their Applications (A): probability theory, Markov process</li>
+                        <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
+                            Data Analytics for Industrial Engineering (A+): machine learning methods</li>
+                    </ul>                
             </ul>
-            <a href="#" class="pdf-link" onclick="openPDF('path/to/transcript.pdf')">View Academic Transcript</a>
+            <!-- <a href="#" class="pdf-link" onclick="openPDF('certificate/CV_Yao Yao.pdf')">View Academic Transcript</a> -->
         </div>
         <div class="slide-number">2/10</div>
     </div>
 
-    <!-- Slide 3: Learned Courses and Skills (2) -->
+    <!-- Slide 4: Learned Courses and Skills (2) -->
     <div class="slide" id="slide3">
-        <div class="header">Academic Presentation</div>
+        <div class="header">Yao's Presentation</div>
+        <div class="slide-content">
+            <h1>Academic Coursework (2)</h1>
+            <h2>Core Curriculum (Programming)</h2>
+            <ul>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                    Python (95): most proficient, (OOP, tensorflow/pytorch/sklearn packages, much experience in RL/DL/ML projects)</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                    C++ (89)</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                    Java (86)</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                    Matlab (96)</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">HUST</span>
+                    SQL (95)</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
+                    Deep Learning: currengly learning; including neural networks/DRL (bandits, policy gradient)/Transformer/RAG, training on mathematical proof and coding projects, final project of RL</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
+                    Reinforcement Learning: currently learning; a systematic course, training on coding and mathematical proof</li>
+                <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
+                    Portfolio Optimization: currently learning; using DRL to optimize the portfolio allocation, tensorflow project</li>
+            </ul>
+            <a href="#" class="pdf-link" onclick="openPDF('certificate/Notes_for_Reinforcement_Learning.pdf')">View My RL Notes</a>
+        </div>
+        <div class="slide-number">3/10</div>
+    </div>
+
+    <!-- Slide 4: Learned Courses and Skills (3) -->
+    <div class="slide" id="slide4">
+        <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Technical Competencies</h1>
             <h2>Research and Analytical Skills</h2>
@@ -169,28 +235,12 @@
             </ul>
             <a href="#" class="pdf-link" onclick="openPDF('path/to/skills_certificate.pdf')">View Certifications</a>
         </div>
-        <div class="slide-number">3/10</div>
-    </div>
-
-    <!-- Slide 4: Learned Courses and Skills (3) -->
-    <div class="slide" id="slide4">
-        <div class="header">Academic Presentation</div>
-        <div class="slide-content">
-            <h1>Academic Projects</h1>
-            <h2>Significant Coursework Projects</h2>
-            <ul>
-                <li>Project 1: Description of methodology and outcomes</li>
-                <li>Project 2: Description of methodology and outcomes</li>
-                <li>Project 3: Description of methodology and outcomes</li>
-            </ul>
-            <a href="#" class="pdf-link" onclick="openPDF('path/to/projects.pdf')">View Project Portfolio</a>
-        </div>
         <div class="slide-number">4/10</div>
     </div>
 
     <!-- Slide 5: Research Experiences (1) -->
     <div class="slide" id="slide5">
-        <div class="header">Academic Presentation</div>
+        <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Research Experience (1)</h1>
             <h2>Primary Research Project</h2>
@@ -209,7 +259,7 @@
 
     <!-- Slide 6: Research Experiences (2) -->
     <div class="slide" id="slide6">
-        <div class="header">Academic Presentation</div>
+        <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Research Experience (2)</h1>
             <h2>Secondary Research Project</h2>
@@ -228,7 +278,7 @@
 
     <!-- Slide 7: Paper Description (1) -->
     <div class="slide" id="slide7">
-        <div class="header">Academic Presentation</div>
+        <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Publication Overview</h1>
             <h2>Paper Title</h2>
@@ -246,7 +296,7 @@
 
     <!-- Slide 8: Paper Description (2) -->
     <div class="slide" id="slide8">
-        <div class="header">Academic Presentation</div>
+        <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Methodology and Experimental Design</h1>
             <h2>Research Methods</h2>
@@ -263,7 +313,7 @@
 
     <!-- Slide 9: Paper Description (3) -->
     <div class="slide" id="slide9">
-        <div class="header">Academic Presentation</div>
+        <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Results and Discussion</h1>
             <h2>Key Findings</h2>
@@ -282,7 +332,7 @@
 
     <!-- Slide 10: Conclusion -->
     <div class="slide" id="slide10">
-        <div class="header">Academic Presentation</div>
+        <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Conclusion and Future Work</h1>
             <h2>Academic Achievements</h2>
