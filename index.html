@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yao's Presentation</title>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <style>
         body, html {
             margin: 0;
@@ -138,7 +141,24 @@
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Personal Introduction</h1>
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
+            <h2>Background Information</h2>
+                    <ul>
+                        <li>Name: Yao Yao (姚瑶)</li>
+                        <li>B.S. in Management Science and Engineering, Huazhong University of Science and Technology</li>
+                            <ul>
+                                <li>GPA: 3.87/4.0</li>
+                                <li>Experimental Program (实验班), training on Mathematics and Programming</li>
+                                <li>Honor of Outstanding Graduate</li>
+                            </ul>
+                        <li>M.S. in Industrial Systems Engineering, National University of Singapore</li>
+                            <ul>
+                                <li>GPA: 4.8/5.0</li>
+                                <li>Award of Commendation List</li>
+                            </ul>
+                        <li>Research Interest: Reinforcement Learning, Preference Learning</li>
+                        <li>Personal Advantages: learning fast, searching and organizing information well</li>
+                    </ul>
+            <!-- <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
                 <div style="flex: 2;">
                     <h2>Background Information</h2>
                     <ul>
@@ -161,7 +181,7 @@
                 <div style="flex: 1; text-align: center;">
                     <img src="figure/profile.png" alt="Personal Profile Picture" style="max-width: 100%; max-height: 300px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
                 </div>
-            </div>
+            </div> -->
             
         </div>
         <div class="slide-number">1/10</div>
@@ -281,29 +301,70 @@
             <h1>Paper Description (1)</h1>
             <h2>Results Overview</h2>
             <ul>
-                <li>Research Objectives:</li>
-                <li>Methodological Approach:</li>
-                <li>Key Findings:</li>
-                <li>Significance to the Field:</li>
+                <li>Assumption: linear true reward, contextual bandits (would extend to MDPs)</li>
+                <li>Pairwise comparison under the BTL model: $MLE$ converges, but fails to yield the optimal policy, while $PE$ succeeds</li>
+                <li>K-wise comparisons under the PL model: True $MLE$ and $MLE_2$ both converge and yield the optimal policy, but the true $MLE$ is asymptotically more efficient. </li>
+                <li>Pairwise comparison under MDPs: $PE$ is applicable to trajectory-based comparison, while hard to introduce to action-based comparison.</li>
             </ul>
-            <div class="figure-placeholder">
-                Insert research diagram, data visualization, or relevant figure here
+            <div class="figure">
+                <img src="figure/paper.png" alt="Comparison of MLE and PE methods" style="max-width:100%; height:auto;">
+                <p class="figure-caption"></p>
             </div>
         </div>
         <div class="slide-number">5/10</div>
     </div>
 
     <!-- Slide 6: Research Experiences (2) -->
-    <div class="slide" id="slide6">
+    <div class="slide" id="slide6" style="height: 160vh; ">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Paper Description (2)</h1>
             <h2>Proof On Pairwise Comparison</h2>
             <ul>
-                <p>$$||\hat\theta_{MLE}-\hat\theta^*||_{\Sigma_{\mathcal{D}}+\lambda I}\leq C\cdot \sqrt{\frac{d+\log(1/\delta)}{\gamma^2n}+\lambda B^2}$$</p>
-                <li>Experimental Design:</li>
-                <li>Results and Analysis:</li>
-                <li>Implications for Future Research:</li>
+                <b><u>Lemma 3.1</u></b> $||\hat\theta_{MLE}-\theta^*||_{\Sigma_{\mathcal{D}}+\lambda I}\leq C\cdot \sqrt{\frac{d+\log(1/\delta)}{\gamma^2n}+\lambda B^2}$
+                <!-- , say $\theta^*\in\Theta(\hat\theta_{MLE},\lambda)=\{\theta\in\Theta_B|||\hat\theta_{MLE}-\theta||_{\Sigma_{\mathcal{D}}+\lambda I}\leq C\cdot \sqrt{\frac{d+\log(1/\delta)}{\gamma^2n}+\lambda B^2}\}.$ -->
+                <li>Aim at bounding the estimation error of MLE in squared semi-norm $||v||_{\Sigma_{\mathcal{D}}+\lambda I}=v^T(\Sigma_{\mathcal{D}}+\lambda I)v$</li>
+                <li>Strong Convexity of $\mathcal{l}_{\mathcal{D}}$</li>
+                <ul><li>Step 1: $\mathcal{l}_{\mathcal{D}}$'s Hessian $\nabla^2 \mathcal{l}_{\mathcal{D}}(\theta)$ proves to be an even function and has a lower bound $\frac{1}{n}\cdot\frac{1}{2+exp(-2LB)+exp(2LB)}\cdot\Sigma_{i=1}^n x_ix_i^T=\frac{\gamma}{n}||X||_2^2$</li>
+                    <li>Step 2: function expansion $\mathcal{l}_{\mathcal{D}}(\theta^*+\Delta)-\mathcal{l}_{\mathcal{D}}(\theta^*)-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta\geq\Delta^T\nabla^2\mathcal{l}_{\mathcal{D}}(\theta^*)\Delta\geq\frac{\gamma}{n}||X\Delta||_2^2=\gamma||\Delta||_{\Sigma_{\mathcal{D}}}^2$</li>
+                    <li>The above shows the quadratic lower bound of $\mathcal{l}_{\mathcal{D}}$, meaning it is $\gamma$-strongly convex with respect to the semi-norm.</li>
+                </ul>
+                <li>Find the upperbound of $\mathcal{l}_{\mathcal{D}}(\theta^*+\Delta)-\mathcal{l}_{\mathcal{D}}(\theta^*)-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta$ to bound the error $||\Delta||=||\hat\theta_{MLE}-\theta^*||$</li>
+                <ul>
+                    <li>Step 1: Because $\hat\theta_{MLE}$ is estimated as optimal for $\mathcal{l}_{\mathcal{D}}$, we have $\mathcal{l}_{\mathcal{D}}(\theta^*+\Delta)-\mathcal{l}_{\mathcal{D}}(\theta^*)<0$ </li>
+                    <li>Step 2: $\gamma||\Delta||_{\Sigma_{\mathcal{D}}}^2\leq \mathcal{l}_{\mathcal{D}}(\theta^*+\Delta)-\mathcal{l}_{\mathcal{D}}(\theta^*)-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta\leq-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta=|\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta|\leq||\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)||_{(\Sigma_{\mathcal{D}}+\lambda I)^{-1}}\cdot||\Delta||_{\Sigma_{\mathcal{D}}+\lambda I}$</li>
+                    <li>Step 3: Focus on $||\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)||_{(\Sigma_{\mathcal{D}}+\lambda I)^{-1}}$ . Define a random vector $V$ to make $E[V]=0, |V_i|\leq 1$ and $V_i$ is independent $\forall i$, so that $V_i$ is sub-gaussian $\forall i$.</li>
+                    <li>Step 4: Use the Bernstein's inequality for sub-gaussian R.V. in quadratic form 
+                        <button onclick="toggleFigure('bernsteinFigure')" class="details-button">View</button>
+                        <div id="bernsteinFigure" class="details-content" style="display: none;">
+                            <img src="figure/bernstein.png" alt="Bernstein's inequality" style="max-width:100%; height:auto;">
+                        </div>
+                        <script>
+                            function toggleFigure(id) {
+                                var content = document.getElementById(id);
+                                if (content.style.display === "none") {
+                                    content.style.display = "block";
+                                } else {
+                                    content.style.display = "none";
+                                }
+                            }
+                        </script>
+                    </li>
+                </ul>
+                <b><u>Theorem 3.2</u></b> Let $J'=J-(\theta^*)^Tv$, then $SubOpt(\hat\pi_{PE})=J'(\pi^*)-J'(\hat\pi_{PE})$ and it has an upperbound. Note that the only comparisons between estimated values and true values can be observed.
+                <li>Decomposit the sub-optimality $J'(\pi^*)-J'(\hat\pi_{PE})=(J'(\pi^*)-\hat J(\pi^*))+(\hat J(\pi^*)-\hat J(\hat\pi_{PE}))+(\hat J(\hat\pi_{PE})-J'(\hat\pi_{PE}))$</li>
+                <ul>
+                    <li>Step 1: the second difference $\leq 0$</li>
+                    <li>Step 2: the third difference $=\min_{\theta\in\Theta(\hat\theta_{MLE}...,\lambda)}E_{s\sim\rho}(\theta-\theta^*)^T(\phi-v)\leq 0$ with probability $1-\delta$</li>
+                    <li>Step 3: for the first difference, further decomposit the term into two terms that can utilize Lemma 3.1</li>
+                </ul>
+                <b><u>Theorem 3.9</u></b> Failure of MLE
+                <li>Use concentration of R.V.: Chebyshev inequality</li>
+                <li>The coverage is $||\Sigma_{\mathcal{D}}^{-1/2}E_s[\phi(s,\pi^*(s))]||_2$</li>
+                <li>If using PE, the coverage will converge to 1, and thi   s is also the single concentrability coefficient</li>
+                <b><u>Theorem 3.10</u></b> Lower bound of sub-optimality for contextual bandits
+                <li>Minimax sub-optimality (the best sub-optimality for the worst instance) still has a lower bound</li>
+
             </ul>
             <!-- <div style="text-align: center; margin: 20px 0;">
                 $$P(i \succ j) = \frac{e^{u_i}}{e^{u_i} + e^{u_j}} = \frac{1}{1 + e^{u_j - u_i}}$$
@@ -321,14 +382,21 @@
             <h1>Paper Description (3)</h1>
             <h2>Proof On K-wise Comparison</h2>
             <ul>
-                <li>Journal/Conference:</li>
-                <li>Publication Date:</li>
-                <li>Co-authors and Contributions:</li>
-                <li>Impact Factor/Citations:</li>
+                <div><b><u>Theorem 4.1</u></b> Bound the sub-optimality for the true $MLE$ </div>
+                <b><u>Theorem 4.2</u></b> Bound the sub-optimality for the $MLE_2$ that splits $K$-wise comparison into pairwise comparisons
+                <li>For both prove the strong convexity of $\mathcal{l}_{\mathcal{D}}$ and thus the upper bound of the estimation error</li>
+                <li>When bouding the estimation error, a random vector $V$ whose components are sub-gaussian should be construct, and Bernstein's inequality is utilized</li>
+                <li>Finally decomposit the sub-optimality and prove the upper bound using boudning for the estimation error</li>
+                <b><u>Theorem 4.3</u></b> $MLE_2$ is an M-estimator, so its asymptotic variance is larger than that of true $MLE$, and thus $MLE$ is asymptotically more efficient than $MLE_2$.
+                <button onclick="toggleDetails('explain')" class="details-button">What Is Asymptotic Variance</button>
+                    <div id="explain" class="details-content" style="display: none;">
+                        <ul>
+                            The asymptotic variance is the limit of a sequence as n goes to infinity.
+                            <a href="https://pages.stat.wisc.edu/~shao/stat610/stat610-19.pdf">Asymptotic Normality and Efficiency</a>
+                        </ul>
+                    </div>
             </ul>
-            <h2>Research Background and Motivation</h2>
-            <p>Description of the research context, gap in the literature, and the motivation behind the study...</p>
-        </div>
+            </div>
         <div class="slide-number">7/10</div>
     </div>
 
@@ -337,14 +405,12 @@
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Paper Description (4)</h1>
-            <h2>Proof On MDP (most general): when data is large enough, the true MLE can yield better policy</h2>
+            <h2>Proof On MDPs (Pairwise Comparison)</h2>
             <ul>
-                <li>Method 1: Detailed description</li>
-                <li>Method 2: Detailed description</li>
-                <li>Method 3: Detailed description</li>
+                <b><u>Theorem 5.2</u></b> $PE$ is applicable on trajectory-based  pairwise comparison
+                <li>Bound the estimation error in <b><u>Lemma 5.1</u></b> and thus bound the sub-optimality</li>
+                <b><u>Lemma 5.3</u></b> For action-based comparison, the probability of choosing an action should use $Q_\theta$ or $Q^\pi$. Although the estimation error proves to have an upper bound for $Q^*$, yielding a policy with $PE$ is not applicable on this, due to hardness to construct LCB for any $Q^\pi$.
             </ul>
-            <h2>Experimental Protocol</h2>
-            <p>Description of experimental design, data collection procedures, and analytical approaches...</p>
         </div>
         <div class="slide-number">8/10</div>
     </div>
@@ -354,18 +420,17 @@
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Paper Description (5)</h1>
-            <h2>Summary</h2>
+            <h2>Extensions and Summary</h2>
             <ul>
-                <li>Primary Result:</li>
-                <li>Secondary Results:</li>
-                <li>Limitations:</li>
-                <li>Preliminary Knowledge: High-Dimensional Probability</li>
+                <li>Nonlinear case: For nonlinear rewards, boundness and smoothness assumption on $r_\theta$ make the estimation error have an upper bound, which, however, will not vanish as the parameter $\alpha_2$ exists.</li>
+                <li>IRL case: Analysis for MDPs comparison imply connections with Inverse Reinforcement Learning (IRL), where comparisons are not made and observed. Therefore, the probability exludes the indicator function. In this case, the sub-optimality for $\hat\pi_{PE}$ still converges only for trajectory-based IRL.</li>
+                <li>Summary on preliminary knowledge: High-Dimensional Probability, Mathematical Statistics</li>
+                <ul>
+                    <li><a href="https://eclass.uoa.gr/modules/document/file.php/MATH506/04.%20Βοηθήματα/HDP-book.pdf">High-Dimensional Probability, by Roman Vershynin</a></li>
+                    <li><a href="https://pages.stat.wisc.edu/~shao/stat609/main.html">Mathematical Statistics, lectured by Prof. Jun Shao, WISC</a></li>
+                </ul>
             </ul>
-            <h2>Research Impact</h2>
-            <p>Discussion of the significance of findings, theoretical implications, and contributions to the field...</p>
-            <h2>Future Directions</h2>
-            <p>Outline of potential follow-up studies and extensions of the current research...</p>
-        </div>
+            </div>
         <div class="slide-number">9/10</div>
     </div>
 
