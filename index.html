@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yao's Presentation</title>
-    <script type="text/x-mathjax-config">
-		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-	</script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+        </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body, html {
             margin: 0;
@@ -155,7 +163,7 @@
                                 <li>GPA: 4.8/5.0</li>
                                 <li>Award of Commendation List</li>
                             </ul>
-                        <li>Research Interest: Reinforcement Learning, Preference Learning</li>
+                        <li>Research Interest: Reinforcement Learning</li>
                         <li>Personal Advantages: learning fast, searching and organizing information well</li>
                     </ul>
             <!-- <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
@@ -207,7 +215,7 @@
                         <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUSRI</span>
                             Numerical Methods in Engineering (95.5): relevant to linear algebra</li>
                         <li><span style="display: inline-block; background-color: #003366; color: white; font-size: 12px; padding: 2px 5px; border-radius: 3px; margin-left: 5px;">NUS</span>
-                            Theory and Algorithms for Nonlinear Optimization (B+): norms, gradient methods, convergence proof, coding with matrices</li>
+                            Theory and Algorithms for Nonlinear Optimization (B+): norms, gradient methods, convexity, convergence proof</li>
                     </ul>
                 <li>Statistics relevant:</li>
                     <ul>
@@ -315,7 +323,7 @@
     </div>
 
     <!-- Slide 6: Research Experiences (2) -->
-    <div class="slide" id="slide6" style="height: 160vh; ">
+    <div class="slide" id="slide6" style="height: 180vh; ">
         <div class="header">Yao's Presentation</div>
         <div class="slide-content">
             <h1>Paper Description (2)</h1>
@@ -323,7 +331,7 @@
             <ul>
                 <b><u>Lemma 3.1</u></b> $||\hat\theta_{MLE}-\theta^*||_{\Sigma_{\mathcal{D}}+\lambda I}\leq C\cdot \sqrt{\frac{d+\log(1/\delta)}{\gamma^2n}+\lambda B^2}$
                 <!-- , say $\theta^*\in\Theta(\hat\theta_{MLE},\lambda)=\{\theta\in\Theta_B|||\hat\theta_{MLE}-\theta||_{\Sigma_{\mathcal{D}}+\lambda I}\leq C\cdot \sqrt{\frac{d+\log(1/\delta)}{\gamma^2n}+\lambda B^2}\}.$ -->
-                <li>Aim at bounding the estimation error of MLE in squared semi-norm $||v||_{\Sigma_{\mathcal{D}}+\lambda I}=v^T(\Sigma_{\mathcal{D}}+\lambda I)v$</li>
+                <li>Aim at bounding the estimation error of MLE in squared semi-norm $||v||_{\Sigma_{\mathcal{D}}+\lambda I}=\sqrt{v^T(\Sigma_{\mathcal{D}}+\lambda I)v}$</li>
                 <li>Strong Convexity of $\mathcal{l}_{\mathcal{D}}$</li>
                 <ul><li>Step 1: $\mathcal{l}_{\mathcal{D}}$'s Hessian $\nabla^2 \mathcal{l}_{\mathcal{D}}(\theta)$ proves to be an even function and has a lower bound $\frac{1}{n}\cdot\frac{1}{2+exp(-2LB)+exp(2LB)}\cdot\Sigma_{i=1}^n x_ix_i^T=\frac{\gamma}{n}||X||_2^2$</li>
                     <li>Step 2: function expansion $\mathcal{l}_{\mathcal{D}}(\theta^*+\Delta)-\mathcal{l}_{\mathcal{D}}(\theta^*)-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta\geq\Delta^T\nabla^2\mathcal{l}_{\mathcal{D}}(\theta^*)\Delta\geq\frac{\gamma}{n}||X\Delta||_2^2=\gamma||\Delta||_{\Sigma_{\mathcal{D}}}^2$</li>
