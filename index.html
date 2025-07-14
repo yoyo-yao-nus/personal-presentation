@@ -23,9 +23,10 @@
             height: 100%;
             font-family: 'Times New Roman', serif;
             background-color: #f9f9f9;
+            overflow-x: hidden;
         }
         .slide {
-            width: 100%;
+            width: 100vw;
             height: 100vh;
             display: none;
             padding: 50px;
@@ -144,6 +145,24 @@
     </style>
 </head>
 <body>
+<!-- Presentations -->
+<!-- Hamburger Menu -->
+<div id="hamburgerMenu" style="position: fixed; top: 20px; left: 24px; z-index: 3000; cursor: pointer; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;">
+  <div style="width: 28px; height: 22px; display: flex; flex-direction: column; justify-content: space-between;">
+    <span style="display: block; height: 4px; background: #003366; border-radius: 2px;"></span>
+    <span style="display: block; height: 4px; background: #003366; border-radius: 2px;"></span>
+    <span style="display: block; height: 4px; background: #003366; border-radius: 2px;"></span>
+  </div>
+</div>
+<!-- Side Menu -->
+<div id="sideMenu" style="display:none; position: fixed; top: 0; left: 0; width: 220px; height: 100vh; background: #fff; box-shadow: 2px 0 8px rgba(0,0,0,0.08); z-index: 3100; padding-top: 60px;">
+  <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(1)">Presentation 1</div>
+  <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(2)">Presentation 2</div>
+</div>
+<div id="sideMenuOverlay" style="display:none; position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.1); z-index: 3099;" onclick="closeSideMenu()"></div>
+
+<!-- Presentations -->
+<div id="presentation1">
     <!-- Slide 1: Personal Introduction -->
     <div class="slide active" id="slide1">
         <div class="header">Yao's Presentation</div>
@@ -340,7 +359,7 @@
                 <li>Find the upperbound of $\mathcal{l}_{\mathcal{D}}(\theta^*+\Delta)-\mathcal{l}_{\mathcal{D}}(\theta^*)-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta$ to bound the error $||\Delta||=||\hat\theta_{MLE}-\theta^*||$</li>
                 <ul>
                     <li>Step 1: Because $\hat\theta_{MLE}$ is estimated as optimal for $\mathcal{l}_{\mathcal{D}}$, we have $\mathcal{l}_{\mathcal{D}}(\theta^*+\Delta)-\mathcal{l}_{\mathcal{D}}(\theta^*)<0$ </li>
-                    <li>Step 2: $\gamma||\Delta||_{\Sigma_{\mathcal{D}}}^2\leq \mathcal{l}_{\mathcal{D}}(\theta^*+\Delta)-\mathcal{l}_{\mathcal{D}}(\theta^*)-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta\leq-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta=|\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta|\leq||\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)||_{(\Sigma_{\mathcal{D}}+\lambda I)^{-1}}\cdot||\Delta||_{\Sigma_{\mathcal{D}}+\lambda I}$</li>
+                    <li>Step 2: $\gamma||\Delta||_{\Sigma_{\mathcal{D}}}^2\leq \mathcal{l}_{\mathcal{D}}(\theta^*+\Delta)-\mathcal{l}_{\mathcal{D}}(\theta^*)-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta\leq-\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)^T\Delta=|\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)||_{(\Sigma_{\mathcal{D}}+\lambda I)^{-1}}\cdot||\Delta||_{\Sigma_{\mathcal{D}}+\lambda I}$</li>
                     <li>Step 3: Focus on $||\nabla\mathcal{l}_{\mathcal{D}}(\theta^*)||_{(\Sigma_{\mathcal{D}}+\lambda I)^{-1}}$ . Define a random vector $V$ to make $E[V]=0, |V_i|\leq 1$ and $V_i$ is independent $\forall i$, so that $V_i$ is sub-gaussian $\forall i$.</li>
                     <li>Step 4: Use the Bernstein's inequality for sub-gaussian R.V. in quadratic form 
                         <button onclick="toggleFigure('bernsteinFigure')" class="details-button">View</button>
@@ -400,7 +419,7 @@
                     <div id="explain" class="details-content" style="display: none;">
                         <ul>
                             The asymptotic variance is the limit of a sequence as n goes to infinity.
-                            <a href="https://pages.stat.wisc.edu/~shao/stat610/stat610-19.pdf">Asymptotic Normality and Efficiency</a>
+                            <a href="https://eclass.uoa.gr/modules/document/file.php/MATH506/04.%20Βοηθήματα/HDP-book.pdf">Asymptotic Normality and Efficiency</a>
                         </ul>
                     </div>
             </ul>
@@ -466,6 +485,11 @@
             <iframe id="pdfViewer" style="width: 100%; height: 90%; border: none; margin-top: 40px;"></iframe>
         </div>
     </div>
+</div>
+
+<div id="presentation2" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; margin:0; padding:0; border:none; z-index:2000;">
+    <iframe id="presentation2Frame" src="Bandits_partI.II.html" style="width:100vw; height:100vh; border:none; margin:0; padding:0; display:block;"></iframe>
+  </div>
 
     <script>
         let currentSlide = 1;
@@ -632,6 +656,38 @@
                 prevSlide();
             }
         });
+
+        // 菜单逻辑
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const sideMenu = document.getElementById('sideMenu');
+        const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+        hamburgerMenu.onclick = function() {
+          sideMenu.style.display = 'block';
+          sideMenuOverlay.style.display = 'block';
+        };
+        function closeSideMenu() {
+          sideMenu.style.display = 'none';
+          sideMenuOverlay.style.display = 'none';
+        }
+        function switchPresentation(idx) {
+          document.getElementById('presentation1').style.display = idx === 1 ? '' : 'none';
+          document.getElementById('presentation2').style.display = idx === 2 ? '' : 'none';
+          closeSideMenu();
+          if(idx === 1) {
+            // 重置slide到第一页
+            setTimeout(function() {
+              let pres = document.getElementById('presentation1');
+              let slides = pres.querySelectorAll('.slide');
+              slides.forEach(slide => slide.classList.remove('active'));
+              if(slides.length) slides[0].classList.add('active');
+              // 更新slide-number
+              pres.querySelectorAll('.slide-number').forEach((el, i) => {
+                el.textContent = (i+1) + '/' + slides.length;
+              });
+            }, 100);
+          }
+          // idx==2时iframe自动加载，无需重置
+        }
     </script>
 </body>
 </html>

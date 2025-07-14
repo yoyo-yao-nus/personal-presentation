@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yao's Presentation</title>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+        </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Times New Roman', serif;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            padding: 50px;
+            box-sizing: border-box;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #005599;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .figure-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            border: 2px dashed #999;
+            font-style: italic;
+            color: #666;
+        }
+        .pdf-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+        .pdf-link:hover {
+            background-color: #004488;
+        }
+        .figure-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+        .figure-link:hover {
+            background-color: #004488;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
+        .nav-btn:hover {
+            background-color: #004488;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            color: #666;
+            font-family: Arial, sans-serif;
+            background: rgba(255,255,255,0.85);
+            border-radius: 8px;
+            padding: 4px 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            pointer-events: none;
+        }
+        ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        p {
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div id="pdfBoxBtn" style="position: fixed; top: 20px; right: 24px; z-index: 2000;">
+    <a href="#" class="pdf-link" style="border-radius: 0; border: 1.5px solid #003366; background: #fff; color: #003366; font-weight: bold; box-shadow: 0 2px 6px rgba(0,0,0,0.07); padding: 8px 18px;" onclick="openPDF('books/book.pdf')">view book</a>
+</div>
+<!--
+    使用说明 Usage:
+    1. 每一页幻灯片用 <div class="slide" id="slideN"> 包裹内容，N为页码。
+    2. 只需复制 .slide 块并修改内容即可添加新页面。
+    3. 支持数学公式、图片、PDF弹窗。
+    4. 支持键盘左右键/按钮切换页面。
+    5. 手机端自适应。
+-->
+
+<!-- Slide 1 示例 Example -->
+<div class="slide active" id="slide1" style="height: 160vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Concentration of Measure</h1>
+        <h2>Definition 5.2 Subgaussianity</h2>
+        <li>An R.V. is $\sigma$-subgaussian if 
+            $$\mathbb{E}\left\lbrack  {\exp \left( {\lambda X}\right) }\right\rbrack   \leq  \exp \left( {{\lambda }^{2}{\sigma }^{2}/2}\right)$$.
+        </li>
+        <h2>Theorem 5.3  - for one subgaussian R.V.</h2>
+        <li>If $X$ is $\sigma$-subgaussian, 
+            $$\mathbb{P}\left( {X \geq  \varepsilon }\right)  \leq  \exp \left( {-\frac{{\varepsilon }^{2}}{2{\sigma }^{2}}}\right) $$
+        </li>
+        <h2>Corllary 5.5  - for several subgaussian R.V.s</h2>
+        <li>If $X_i-\mu$ are independent, subgaussian R.V., then $\forall \varepsilon$,
+            $$\mathbb{P}\left( {\widehat{\mu } \geq  \mu  + \varepsilon }\right)  \leq  \exp \left( {-\frac{n{\varepsilon }^{2}}{2{\sigma }^{2}}}\right) \;\text{ and }\;\mathbb{P}\left( {\widehat{\mu } \leq  \mu  - \varepsilon }\right)  \leq  \exp \left( {-\frac{n{\varepsilon }^{2}}{2{\sigma }^{2}}}\right) ,$$
+            where $\widehat{\mu } = \frac{1}{n}\mathop{\sum }\limits_{{t = 1}}^{n}{X}_{t}$.
+        </li>
+        <h2>Theorem 9.2  - strengthened version of collary 5.5</h2>
+        <li>If ${X}_{1},{X}_{2},\ldots ,{X}_{n}$ are independent $\sigma$-subgaussian R.V., and ${S}_{t} = \mathop{\sum }\limits_{{s = 1}}^{t}{X}_{s}$, then $\forall\varepsilon$,
+            $$\mathbb{P}\left( {\text{ exists }t \leq  n : {S}_{t} \geq  \varepsilon }\right)  \leq  \exp \left( {-\frac{{\varepsilon }^{2}}{{2n}{\sigma }^{2}}}\right) . $$
+        </li>
+        <h2>Lemma 10.3 Chernoff's Bound for Bernouli Noise</h2>
+        <li>Let $\frac{1}{n}\mathop{\sum }\limits_{{t = 1}}^{n}{X}_{t}$, then for $\varepsilon  \in  \left\lbrack  {0,1 - \mu }\right\rbrack$
+            $$\mathbb{P}\left( {\widehat{\mu } \geq  \mu  + \varepsilon }\right)  \leq  \exp \left( {-{nd}\left( {\mu  + \varepsilon ,\mu }\right) }\right)  $$
+            for $\varepsilon  \in  \left\lbrack  {0,\mu }\right\rbrack$
+            $$\mathbb{P}\left( {\widehat{\mu } \leq  \mu  - \varepsilon }\right)  \leq  \exp \left( {-{nd}\left( {\mu  - \varepsilon ,\mu }\right) }\right) . $$
+        </li>
+    </div>
+    <div class="slide-number">1/2</div>
+</div>
+
+<!-- Slide 2 示例 Example -->
+<div class="slide" id="slide2">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Stochastic Bandits</h1>
+        <h2>Definition of Bandit and Environment</h2>
+        <li>A bandit is defined as a collection of the distributions of the reward of each arm$$\nu  = \left( {{P}_{a} : a \in  \mathcal{A}}\right) $$</li>
+        <li>A set of bandits is called an environment class$$\mathcal{E} = \left\{  {\nu  = \left( {{P}_{a} : a \in  \mathcal{A}}\right)  : {P}_{a} \in  {\mathcal{M}}_{a}\text{ for all }a \in  \mathcal{A}}\right\}  $$</li>
+        <li>Classification of bandits: structured bandits and unstructured bandits, the latter composed of parametric and non-parametric bandits.</li>
+        <h2>ETC Strategy</h2>
+        <li>Each arm is played a fixed number of rounds, $m$, following which the arm with the optimal empirical mean reward will be chosen in each future round.</li>
+    </div>
+    <div class="slide-number">2/2</div>
+</div>
+
+<div class="slide" id="slide3">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Upper Confidence Bound</h1>
+        <h2>Algorithm</h2>
+        <li>Each step choose an action that has the largest upper confidence bound
+        $${\operatorname{UCB}}_{i}\left( {t - 1,\delta }\right)  = \left\{  \begin{array}{ll} \infty & \text{ if }{T}_{i}\left( {t - 1}\right) \\  {\widehat{\mu }}_{i}\left( {t - 1}\right)  + \sqrt{\frac{2\log \left( {1/\delta }\right) }{{T}_{i}\left( {t - 1}\right) }} & \text{ otherwise }. \end{array}\right. $$</li>
+        <h2>Theorem 7.1 - regret bound depending on reciprocal of gaps</h2>
+        <li> For any horizon $ n $, if $\delta = 1/n^2$, then </li>
+        $$
+        {R}_{n} \leq  3\mathop{\sum }\limits_{{i = 1}}^{k}{\Delta }_{i} + \mathop{\sum }\limits_{{i : {\Delta }_{i} > 0}}\frac{{16}\log \left( n\right) }{{\Delta }_{i}}.   
+        $$
+        <h2>Theorem 7.2 - regret bound sublinear</h2>
+        <li> For any horizon $ n $, if $\delta = 1/n^2$, then </li>
+        $${R}_{n} \leq  8\sqrt{{nk}\log \left( n\right) } + 3\mathop{\sum }\limits_{{i = 1}}^{k}{\Delta }_{i}$$
+    </div>
+    <div class="slide-number">3/3</div>
+</div>
+
+<div class="slide" id="slide4" style="height: 220vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Upper Confidence Bound</h1>
+        <h2>Proof of Theorem 7.1 - reciprocal of gaps</h2>
+        <li>Define a good event ${G}_{i} = \left\{  {{\mu }_{1} < \mathop{\min }\limits_{{t \in  \left\lbrack  n\right\rbrack  }}{\mathrm{{UCB}}}_{1}\left( {t,\delta }\right) }\right\}   \cap  \left\{  {{\widehat{\mu }}_{i{u}_{i}} + \sqrt{\frac{2}{{u}_{i}}\log \left( \frac{1}{\delta }\right) } < {\mu }_{1}}\right\}  ,$</li>
+        <li>Decompose the regret into two parts: $R_n = R_n(G_1) + R_n(G_1^c)$, which means decomposition of $$\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   = \mathbb{E}\left\lbrack  {\mathbb{I}\left\{  {G}_{i}\right\}  {T}_{i}\left( n\right) }\right\rbrack   + \mathbb{E}\left\lbrack  {\mathbb{I}\left\{  {G}_{i}^{c}\right\}  {T}_{i}\left( n\right) }\right\rbrack   $$</li>
+        <li>For the first term, we have ${T}_{i}\left( n\right)  \leq  {u}_{i}$, proved by contradiction.</li>
+        <li>For the second term, we have $\mathbb{P}\left( {G}_{i}^{c}\right)  \leq  {n\delta } + \exp \left( {-\frac{{u}_{i}{c}^{2}{\Delta }_{i}^{2}}{2}}\right) .$</li>
+        <ul><li>${G}_{i}^{c} = \left\{  {{\mu }_{1} \geq  \mathop{\min }\limits_{{t \in  \left\lbrack  n\right\rbrack  }}{\mathrm{{UCB}}}_{1}\left( {t,\delta }\right) }\right\}   \cup  \left\{  {{\widehat{\mu }}_{i{u}_{i}} + \sqrt{\frac{2\log \left( {1/\delta }\right) }{{u}_{i}}} \geq  {\mu }_{1}}\right\} $</li>
+            <li>For the first subset, we have $$\mathbb{P}\left( {{\mu }_{1} \geq  \mathop{\min }\limits_{{t \in  \left\lbrack  n\right\rbrack  }}{\mathrm{{UCB}}}_{1}\left( {t,\delta }\right) }\right)  \leq  \mathbb{P}\left( {\mathop{\bigcup }\limits_{{s \in  \left\lbrack  n\right\rbrack  }}\left\{  {{\mu }_{1} \geq  {\widehat{\mu }}_{1s} + \sqrt{\frac{2\log \left( {1/\delta }\right) }{s}}}\right\}  }\right)$$</li>
+            <li>For the second subset, we have $$\mathbb{P}\left( {{\widehat{\mu }}_{i{u}_{i}} + \sqrt{\frac{2\log \left( {1/\delta }\right) }{{u}_{i}}} \geq  {\mu }_{1}}\right)  = \mathbb{P}\left( {{\widehat{\mu }}_{i{u}_{i}} - {\mu }_{i} \geq  {\Delta }_{i} - \sqrt{\frac{2\log \left( {1/\delta }\right) }{{u}_{i}}}}\right)$$,
+                by assuming that $${\Delta }_{i} - \sqrt{\frac{2\log \left( {1/\delta }\right) }{{u}_{i}}} \geq  c{\Delta }_{i} $$
+            </li>
+            <li>Therefore, $\mathbb{P}\left( {G}_{i}^{c}\right)  \leq  {n\delta } + \exp \left( {-\frac{{u}_{i}{c}^{2}{\Delta }_{i}^{2}}{2}}\right) .$</li>
+        </ul>
+        <li>Hence, $$\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   \leq  {u}_{i} + n\left( {{n\delta } + \exp \left( {-\frac{{u}_{i}{c}^{2}{\Delta }_{i}^{2}}{2}}\right) }\right) . $$
+            where ${u}_{i} = \left\lceil  \frac{2\log \left( {1/\delta }\right) }{{\left( 1 - c\right) }^{2}{\Delta }_{i}^{2}}\right\rceil  .$
+        </li>
+        <li>Finally, $$\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   \leq  3 + \frac{{16}\log \left( n\right) }{{\Delta }_{i}^{2}}.$$
+            and$$
+            {R}_{n} = \sum_{i=1}^k \Delta_i\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack \leq  3\mathop{\sum }\limits_{{i = 1}}^{k}{\Delta }_{i} + \mathop{\sum }\limits_{{i : {\Delta }_{i} > 0}}\frac{{16}\log \left( n\right) }{{\Delta }_{i}}.   
+            $$
+        </li>
+        <h2>Proof of Theorem 7.2 - linear in gaps</h2>
+        <li>Decompose the regret by $\Delta$:
+            $${R}_{n} = \mathop{\sum }\limits_{{i = 1}}^{k}{\Delta }_{i}\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   = \mathop{\sum }\limits_{{i : {\Delta }_{i} < \Delta }}{\Delta }_{i}\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   + \mathop{\sum }\limits_{{i : {\Delta }_{i} \geq  \Delta }}{\Delta }_{i}\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack$$
+            $$\leq  {n\Delta } + \mathop{\sum }\limits_{{i : {\Delta }_{i} \geq  \Delta }}\left( {3{\Delta }_{i} + \frac{{16}\log \left( n\right) }{{\Delta }_{i}}}\right)  \leq  {n\Delta } + \frac{{16k}\log \left( n\right) }{\Delta } + 3\mathop{\sum }\limits_{i}{\Delta }_{i}$$
+            $$\leq  8\sqrt{{nk}\log \left( n\right) } + 3\mathop{\sum }\limits_{{i = 1}}^{k}{\Delta }_{i}$$
+        </li>
+    </div>
+    <div class="slide-number">4/4</div>
+</div>
+
+
+<div class="slide" id="slide5" style="height: 150vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Assymptotic Optimality and Minimax Optimality</h1>
+        <h2>Assymptotic Optimality UCB</h2>
+        <li>$$\mathop{\limsup }\limits_{{n \rightarrow  \infty }}\frac{{R}_{n}}{\log \left( n\right) } \leq  \mathop{\sum }\limits_{{i : {\Delta }_{i} > 0}}\frac{2}{{\Delta }_{i}}.$$</li>
+        <li>Regret Decomposition$${T}_{i}\left( n\right)  = \mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{A}_{t} = i}\right\}   \leq  \mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{\widehat{\mu }}_{1}\left( {t - 1}\right)  + \sqrt{\frac{2\log f\left( t\right) }{{T}_{1}\left( {t - 1}\right) }} \leq  {\mu }_{1} - \varepsilon }\right\}$$
+            $$+ \mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{\widehat{\mu }}_{i}\left( {t - 1}\right)  + \sqrt{\frac{2\log f\left( t\right) }{{T}_{i}\left( {t - 1}\right) }} \geq  {\mu }_{1} - \varepsilon \text{ and }{A}_{t} = i}\right\}  . $$
+        </li>
+        <h2>Minimax Optimality UCB</h2>
+        <li>Peeling device
+            $$\mathbb{P}\left( {\text{exists}s \geq  1 : {\widehat{\mu }}_{s} + \sqrt{\frac{4}{s}{\log }^{ + }\left( \frac{1}{s\delta }\right) } + \Delta  \leq  0}\right)$$
+            $$= \mathbb{P}\left( {\text{exists }s \geq  1 : {S}_{s} + \sqrt{{4s}{\log }^{ + }\left( \frac{1}{s\delta }\right) } + {s\Delta } \leq  0}\right)$$
+            $$\leq  \mathop{\sum }\limits_{{j = 0}}^{\infty }\mathbb{P}\left( {\text{ exists }s \in  \left\lbrack  {{2}^{j},{2}^{j + 1}}\right\rbrack   : {S}_{s} + \sqrt{{4s}{\log }^{ + }\left( \frac{1}{s\delta }\right) } + {s\Delta } \leq  0}\right)$$
+        </li>
+        <li>Decompose Regret by $\Delta  = {\left( {\mu }_{1} - \mathop{\min }\limits_{{s \leq  n}}\left( {\widehat{\mu }}_{1s} + \sqrt{\frac{4}{s}{\log }^{ + }\left( \frac{n}{ks}\right) }\right) \right) }^{ + }.$
+            $${R}_{n} = \mathop{\sum }\limits_{{i : {\Delta }_{i} > 0}}{\Delta }_{i}\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack$$
+            $$\leq  \mathbb{E}\left\lbrack  {{2n\Delta } + \mathop{\sum }\limits_{{i : {\Delta }_{i} > {2\Delta }}}{\Delta }_{i}{T}_{i}\left( n\right) }\right\rbrack$$
+        </li>
+
+    </div>
+    <div class="slide-number">5/5</div>
+</div>
+
+<div class="slide" id="slide6" >
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>UCB for Bernouli Bandits</h1>
+        <h2>Bernouli Noise</h2>
+        <li>Relative Entropy
+            $$d\left( {p,q}\right)  = p\log \left( {p/q}\right)  + \left( {1 - p}\right) \log \left( {\left( {1 - p}\right) /\left( {1 - q}\right) }\right) $$
+        </li>
+        <li>Pinsker's Inequality
+            $$d\left( {p,q}\right)  \geq  2{\left( p - q\right) }^{2}$$
+        </li>
+        <h2>KL-UCB Algorithm</h2>
+        <li>The upper confidence bound is defined by the Chernoff's bound</li>
+        <h2>Theorem 10.6 Regret Bound</h2>
+        $${R}_{n} \leq  \mathop{\sum }\limits_{{i : {\Delta }_{i} > 0}}\mathop{\inf }\limits_{\substack{{{\varepsilon }_{1},{\varepsilon }_{2} > 0} \\  {{\varepsilon }_{1} + {\varepsilon }_{2} \in  \left( {0,{\Delta }_{i}}\right) } }}{\Delta }_{i}\left( {\frac{\log \left( {f\left( n\right) }\right) }{d\left( {{\mu }_{i} + {\varepsilon }_{1},{\mu }^{ * } - {\varepsilon }_{2}}\right) } + \frac{1}{2{\varepsilon }_{1}^{2}} + \frac{2}{{\varepsilon }_{2}^{2}}}\right) .$$
+        <li>Assymptotic optimality: $\mathop{\limsup }\limits_{{n \rightarrow  \infty }}\frac{{R}_{n}}{\log \left( n\right) } \leq  \mathop{\sum }\limits_{{i : {\Delta }_{i} > 0}}\frac{{\Delta }_{i}}{d\left( {{\mu }_{i},{\mu }^{ * }}\right) }$</li>
+    </div>
+    <div class="slide-number">5/5</div>
+</div>  
+
+<!-- 导航按钮 Navigation buttons -->
+<div class="navigation">
+    <button class="nav-btn" onclick="prevSlide()">Prev</button>
+    <button class="nav-btn" onclick="nextSlide()">Next</button>
+</div>
+
+<!-- PDF 查看弹窗 PDF modal -->
+<div id="pdfModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000;">
+    <div id="pdfDialog" style="position: relative; width: 80%; height: 80%; margin: 5% auto; background-color: white; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <button onclick="closePDF()" style="position: absolute; top: 10px; right: 10px; padding: 5px 10px; background-color: #003366; color: white; border: none; cursor: pointer;">Close</button>
+        <button onclick="shrinkPDF()" style="position: absolute; top: 10px; right: 80px; padding: 5px 10px; background-color: #eee; color: #003366; border: 1px solid #003366; cursor: pointer;">Minimize</button>
+        <iframe id="pdfViewer" style="width: 100%; height: 90%; border: none; margin-top: 40px;"></iframe>
+    </div>
+</div>
+<!-- 收缩后的小按钮 -->
+<div id="pdfShrinkBtn" style="display:none; position: fixed; top: 50%; right: 0; z-index: 2001; background: #003366; color: #fff; border-radius: 8px 0 0 8px; padding: 12px 8px; cursor: pointer; font-weight: bold;">PDF</div>
+
+<script>
+// 当前页码 current slide number
+let currentSlide = 1;
+const totalSlides = document.querySelectorAll('.slide').length;
+
+// 显示指定页码 show slide by number
+function showSlide(slideNumber) {
+    document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+    });
+    document.getElementById('slide' + slideNumber).classList.add('active');
+    currentSlide = slideNumber;
+    // 更新页码 update slide number
+    document.querySelectorAll('.slide-number').forEach((el, idx) => {
+        el.textContent = (idx+1) + '/' + totalSlides;
+    });
+}
+// 下一页 next
+function nextSlide() {
+    if (currentSlide < totalSlides) showSlide(currentSlide + 1);
+}
+// 上一页 prev
+function prevSlide() {
+    if (currentSlide > 1) showSlide(currentSlide - 1);
+}
+// 键盘左右键切换 keyboard navigation
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowRight') nextSlide();
+    else if (event.key === 'ArrowLeft') prevSlide();
+});
+let pdfScrollTop = 0;
+let pdfPathCache = '';
+
+function openPDF(pdfPath) {
+    const iframe = document.getElementById('pdfViewer');
+    document.getElementById('pdfModal').style.display = 'block';
+    document.getElementById('pdfShrinkBtn').style.display = 'none';
+    // 只在首次或切换文档时重载
+    if (pdfPathCache !== pdfPath) {
+        iframe.src = pdfPath;
+        pdfPathCache = pdfPath;
+        pdfScrollTop = 0;
+        iframe.onload = function() {
+            iframe.contentWindow.scrollTo(0, 0);
+        };
+    } else {
+        // 恢复滚动位置
+        iframe.onload = function() {
+            iframe.contentWindow.scrollTo(0, pdfScrollTop);
+        };
+        // 若已加载，直接滚动
+        setTimeout(function() {
+            try { iframe.contentWindow.scrollTo(0, pdfScrollTop); } catch(e){}
+        }, 300);
+    }
+    return false;
+}
+function closePDF() {
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfViewer').src = '';
+    pdfPathCache = '';
+    pdfScrollTop = 0;
+}
+function shrinkPDF() {
+    // 记录滚动位置
+    try {
+        const iframe = document.getElementById('pdfViewer');
+        pdfScrollTop = iframe.contentWindow.scrollY || iframe.contentWindow.document.documentElement.scrollTop || 0;
+    } catch(e) { pdfScrollTop = 0; }
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfShrinkBtn').style.display = 'block';
+}
+document.getElementById('pdfShrinkBtn').onclick = function() {
+    document.getElementById('pdfModal').style.display = 'block';
+    document.getElementById('pdfShrinkBtn').style.display = 'none';
+    // 恢复滚动位置
+    const iframe = document.getElementById('pdfViewer');
+    iframe.onload = function() {
+        iframe.contentWindow.scrollTo(0, pdfScrollTop);
+    };
+    setTimeout(function() {
+        try { iframe.contentWindow.scrollTo(0, pdfScrollTop); } catch(e){}
+    }, 300);
+};
+// 图片弹窗 open image modal
+function openJPG(imagePath) {
+    // 创建图片弹窗 create image modal
+    const imageModal = document.createElement('div');
+    imageModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 1000; display: flex; justify-content: center; align-items: center;';
+    const imageContainer = document.createElement('div');
+    imageContainer.style.cssText = 'position: relative; max-width: 90vw; max-height: 90vh; background: #fff; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); overflow: auto;';
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '关闭 Close';
+    closeButton.style.cssText = 'position: absolute; top: 10px; right: 10px; padding: 5px 10px; background: #003366; color: #fff; border: none; cursor: pointer;';
+    closeButton.onclick = function() { document.body.removeChild(imageModal); };
+    const image = document.createElement('img');
+    image.src = imagePath;
+    image.style.cssText = 'max-width: 100%; max-height: 80vh; display: block; margin: 30px auto 10px;';
+    imageContainer.appendChild(closeButton);
+    imageContainer.appendChild(image);
+    imageModal.appendChild(imageContainer);
+    document.body.appendChild(imageModal);
+    return false;
+}
+</script>
+</body>
+</html> 
