@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yao's Presentation</title>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+        </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Times New Roman', serif;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            padding: 50px;
+            box-sizing: border-box;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #005599;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .figure-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            border: 2px dashed #999;
+            font-style: italic;
+            color: #666;
+        }
+        .pdf-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+        .pdf-link:hover {
+            background-color: #004488;
+        }
+        .figure-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+        .figure-link:hover {
+            background-color: #004488;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
+        .nav-btn:hover {
+            background-color: #004488;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            color: #666;
+            font-family: Arial, sans-serif;
+            background: rgba(255,255,255,0.85);
+            border-radius: 8px;
+            padding: 4px 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            pointer-events: none;
+        }
+        ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        p {
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div id="pdfBoxBtn" style="position: fixed; top: 20px; right: 24px; z-index: 2000;">
+    <a href="#" class="pdf-link" style="border-radius: 0; border: 1.5px solid #003366; background: #fff; color: #003366; font-weight: bold; box-shadow: 0 2px 6px rgba(0,0,0,0.07); padding: 8px 18px;" onclick="openPDF('books/book.pdf')">view book</a>
+</div>
+<!--
+    使用说明 Usage:
+    1. 每一页幻灯片用 <div class="slide" id="slideN"> 包裹内容，N为页码。
+    2. 只需复制 .slide 块并修改内容即可添加新页面。
+    3. 支持数学公式、图片、PDF弹窗。
+    4. 支持键盘左右键/按钮切换页面。
+    5. 手机端自适应。
+-->
+
+<!-- Slide 1 示例 Example -->
+<div class="slide active" id="slide1" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Minimax Lower Bound - Tools of Information Theory</h1>
+        <h2>Minimax Regret</h2>
+        <li>\[{R}_{n}^{ * }\left( \mathcal{E}\right)  = \mathop{\inf }\limits_{{\pi  \in  \Pi }}{R}_{n}\left( {\pi ,\mathcal{E}}\right)  = \mathop{\inf }\limits_{{\pi  \in  \Pi }}\mathop{\sup }\limits_{{\nu  \in  \mathcal{E}}}{R}_{n}\left( {\pi ,\nu }\right) .\]
+        </li>
+        <h2>Relative Entropy for Gaussian Distribution</h2>
+        <li>
+            \[\mathrm{D}\left( {{P}_{1},{P}_{2}}\right)  = \frac{1}{2}\left( {\log \left( \frac{{\sigma }_{2}^{2}}{{\sigma }_{1}^{2}}\right)  + \frac{{\sigma }_{1}^{2}}{{\sigma }_{2}^{2}} - 1}\right)  + \frac{{\left( {\mu }_{1} - {\mu }_{2}\right) }^{2}}{2{\sigma }_{2}^{2}}.\]
+        </li>
+        <h2>Pinsker's Inequality</h2>
+        <li>
+            \[\delta \left( {P,Q}\right)  = \mathop{\sup }\limits_{{A \in  \mathcal{F}}}Q\left( A\right)  - P\left( A\right)  = \mathop{\sup }\limits_{{A \in  \mathcal{F}}}P\left( A\right)  - Q\left( A\right)  \leq  \sqrt{\frac{1}{2}\mathrm{D}\left( {P,Q}\right) }\]
+        </li>
+        <h2>Bretagnolle-Huber Inequality (Theorem 14.2)</h2>
+        <li>
+            \[P\left( A\right)  + Q\left( {A}^{c}\right)  \geq  \frac{1}{2}\exp \left( {-\mathrm{D}\left( {P,Q}\right) }\right) \]
+        </li>
+        <h2>Divergence Decomposition (Lemma 15.1)</h2>
+        <li>
+            \[\mathrm{D}\left( {{\mathbb{P}}_{\nu },{\mathbb{P}}_{{\nu }^{\prime }}}\right)  = \mathop{\sum }\limits_{{i = 1}}^{k}{\mathbb{E}}_{\nu }\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack  \mathrm{D}\left( {{P}_{i},{P}_{i}^{\prime }}\right) . \tag{15.1}\]
+        </li>
+        <h2>Chaining Theorem 14.2 and Lemma 15.1 (Lemma 16.3)</h2>
+        <li>
+            Let i be suboptimal in $\nu$ and uniquely optimal in $\nu\prime$ and \(\lambda  = {\mu }_{i}\left( {\nu }^{\prime }\right)  - {\mu }_{i}\left( \nu \right)\),
+\[{\mathbb{E}}_{\nu \pi }\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   \geq  \frac{\log \left( \frac{\min \left\{  {\lambda  - {\Delta }_{i}\left( \nu \right) ,{\Delta }_{i}\left( \nu \right) }\right\}  }{4}\right)  + \log \left( n\right)  - \log \left( {{R}_{n}\left( \nu \right)  + {R}_{n}\left( {\nu }^{\prime }\right) }\right) }{\mathrm{D}\left( {{P}_{i},{P}_{i}^{\prime }}\right) }. \tag{16.4}\]
+        </li>
+        <h2>Relative Entropy for Gaussian Distribution</h2>
+        <li>
+            \[\mathrm{D}\left( {{P}_{1},{P}_{2}}\right)  = \frac{1}{2}\left( {\log \left( \frac{{\sigma }_{2}^{2}}{{\sigma }_{1}^{2}}\right)  + \frac{{\sigma }_{1}^{2}}{{\sigma }_{2}^{2}} - 1}\right)  + \frac{{\left( {\mu }_{1} - {\mu }_{2}\right) }^{2}}{2{\sigma }_{2}^{2}}.\]
+        </li>
+        <h2>Stopping-Time Version of Divergence Decomposition</h2>
+        <li>
+            \[\mathrm{D}\left( {{\mathbb{P}}_{\nu X},{\mathbb{P}}_{{\nu }^{\prime }X}}\right)  \leq  \mathop{\sum }\limits_{{i = 1}}^{k}{\mathbb{E}}_{\nu }\left\lbrack  {{T}_{i}\left( \tau \right) }\right\rbrack  \mathrm{D}\left( {{P}_{i},{P}_{i}^{\prime }}\right)\]
+        </li>
+        <h2>Divergence Decomposition for More General Action Space</h2>
+        <li>
+            \[\mathrm{D}\left( {{\mathbb{P}}_{\nu },{\mathbb{P}}_{{\nu }^{\prime }}}\right)  = \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathrm{D}\left( {{P}_{{A}_{t}},{P}_{{A}_{t}}^{\prime }}\right) }\right\rbrack\]
+        </li>
+    </div>
+    <div class="slide-number">1/2</div>
+</div>
+
+<!-- Slide 2 示例 Example -->
+<div class="slide" id="slide2">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Minimax and Instance-Dependent Lower Bounds</h1>
+        <h2>Theorem 15.2 Minimax Lower Bound</h2>
+        <li>Let $k>1$ and $n\geq k-1$, for any policy, there exits a mean vector $\mu\in[0,1]^k$ such that
+            \[{R}_{n}\left( {\pi ,{\nu }_{\mu }}\right)  \geq  \frac{1}{27}\sqrt{\left( {k - 1}\right) n}.\]
+        </li>
+        <h2>Theorem 16.4 Instance-Dependent Lower Bounds</h2>
+        <li>
+            Let \(\mathcal{E}\left( \nu \right)  = \left\{  {{\nu }^{\prime } \in  {\mathcal{E}}_{\mathcal{N}}^{k} : {\mu }_{i}\left( {\nu }^{\prime }\right)  \in  \left\lbrack  {{\mu }_{i},{\mu }_{i} + 2{\Delta }_{i}}\right\rbrack  ,1 \leq  i \leq  k}\right\}\),
+            for all \(\varepsilon\in(0,1]\) and \(n\in\mathcal(N)\),
+            \[{R}_{n}\left( {\pi ,\nu }\right)  \geq  \frac{2}{{\left( 1 + \varepsilon \right) }^{2}}\mathop{\sum }\limits_{{i : {\Delta }_{i} > 0}}{\left( \frac{\left( {1 - p}\right) \log \left( n\right)  + \log \left( \frac{\varepsilon {\Delta }_{i}}{8C}\right) }{{\Delta }_{i}}\right) }^{ + }.\]
+        </li>
+        </div>
+    <div class="slide-number">2/2</div>
+</div>
+
+<div class="slide" id="slide3">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Minimax and Instance-Dependent Lower Bounds</h1>
+        <h2>Proof of Theorem 15.2 - Minimax lower bounds</h2>
+        <li>
+            Regret Decomposition: \(R_n(\pi, \nu_\mu) = \Delta \cdot (n - \mathbb{E}_\mu[T_1(n)]) \geq \mathbb{P}_\mu(T_1(n) \leq n/2) \cdot \frac{n\Delta}{2}\), and 
+            \(R_n(\pi, \nu_{\mu'}) > \mathbb{P}_{\mu'}(T_1(n) > n/2) \cdot \frac{n\Delta}{2}\).
+        </li>
+        <li>Apply Bratagnolle-Huber Inequality:
+            \[{R}_{n}\left( {\pi ,{\nu }_{\mu }}\right)  + {R}_{n}\left( {\pi ,{\nu }_{{\mu }^{\prime }}}\right)  > \frac{n\Delta }{2}\left( {{\mathbb{P}}_{\mu }\left( {{T}_{1}\left( n\right)  \leq  n/2}\right)  + {\mathbb{P}}_{{\mu }^{\prime }}\left( {{T}_{1}\left( n\right)  > n/2}\right) }\right)  \tag{15.3}\]
+\[\geq  \frac{n\Delta }{4}\exp \left( {-\mathrm{D}\left( {{\mathbb{P}}_{\mu },{\mathbb{P}}_{{\mu }^{\prime }}}\right) }\right) .\]
+        </li>
+        <li>Apply Divergence Decomposition:
+            \[\mathrm{D}\left( {{\mathbb{P}}_{\mu },{\mathbb{P}}_{{\mu }^{\prime }}}\right)  = {\mathbb{E}}_{\mu }\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack  \mathrm{D}\left( {\mathcal{N}\left( {0,1}\right) ,\mathcal{N}\left( {{2\Delta },1}\right) }\right)  = {\mathbb{E}}_{\mu }\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack  \frac{{\left( 2\Delta \right) }^{2}}{2} \leq  \frac{{2n}{\Delta }^{2}}{k - 1}.\]
+        </li>
+        <li>
+            Finally
+\[2{R}_{n}^{ * }\left( {{\mathcal{E}}_{\mathcal{N}}^{k}\left( 1\right) }\right)=2\max\{ {R}_{n}\left( {\pi ,{\nu }_{\mu }}\right)  , {R}_{n}\left( {\pi ,{\nu }_{{\mu }^{\prime }}}\right)  \}\geq{R}_{n}\left( {\pi ,{\nu }_{\mu }}\right)  + {R}_{n}\left( {\pi ,{\nu }_{{\mu }^{\prime }}}\right)  \geq  \frac{n\Delta }{4}\exp \left( {-\frac{{2n}{\Delta }^{2}}{k - 1}}\right) .\]
+completed by choosing \(\Delta  = \sqrt{\left( {k - 1}\right) /{4n}} \leq  1/2\) .
+Hence,\[{R}_{n}^{ * }\left( {{\mathcal{E}}_{\mathcal{N}}^{k}\left( 1\right) }\right)  \geq  \frac{1}{27}\sqrt{\left( {k - 1}\right) n}.\]
+        </li>
+        </div>
+    <div class="slide-number">3/3</div>
+</div>
+
+<div class="slide" id="slide4" >
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Minimax and Instance-Dependent Lower Bounds</h1>
+        <h2>Proof of Theorem 16.4 - Instance-Dependent lower bounds</h2>
+        <li><b><u>Lemma 16.3</u></b>
+            Let i be suboptimal in $\nu$ and uniquely optimal in $\nu\prime$ and \(\lambda  = {\mu }_{i}\left( {\nu }^{\prime }\right)  - {\mu }_{i}\left( \nu \right)\),
+\[{\mathbb{E}}_{\nu \pi }\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   \geq  \frac{\log \left( \frac{\min \left\{  {\lambda  - {\Delta }_{i}\left( \nu \right) ,{\Delta }_{i}\left( \nu \right) }\right\}  }{4}\right)  + \log \left( n\right)  - \log \left( {{R}_{n}\left( \nu \right)  + {R}_{n}\left( {\nu }^{\prime }\right) }\right) }{\mathrm{D}\left( {{P}_{i},{P}_{i}^{\prime }}\right) }. \tag{16.4}\]
+        </li>
+        <li>
+            Apply Lemma 16.3: 
+            With \(\lambda  = {\Delta }_{i}\left( {1 + \varepsilon }\right) ,\)
+            \[{\mathbb{E}}_{\nu \pi }\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   \geq  \frac{2}{{\Delta }_{i}^{2}{\left( 1 + \varepsilon \right) }^{2}}\left( {\log \left( \frac{n}{{2C}{n}^{p}}\right)  + \log \left( \frac{\min \left\{  {\lambda  - {\Delta }_{i},{\Delta }_{i}}\right\}  }{4}\right) }\right)\]
+            \[= \frac{2}{{\Delta }_{i}^{2}{\left( 1 + \varepsilon \right) }^{2}}\left( {\left( {1 - p}\right) \log \left( n\right)  + \log \left( \frac{\varepsilon {\Delta }_{i}}{8C}\right) }\right) .\]
+        </li>
+        <li>
+            Hence, plugged into the regret decomposition (lemma 4.5)
+\[{R}_{n}\left( {\pi ,\nu }\right)  \geq  \frac{2}{{\left( 1 + \varepsilon \right) }^{2}}\mathop{\sum }\limits_{{i : {\Delta }_{i} > 0}}{\left( \frac{\left( {1 - p}\right) \log \left( n\right)  + \log \left( \frac{\varepsilon {\Delta }_{i}}{8C}\right) }{{\Delta }_{i}}\right) }^{ + }. \tag{16.5}\]
+        </li>
+    </div>
+    <div class="slide-number">4/4</div>
+</div>
+
+
+<div class="slide" id="slide5" >
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Minimax Lower Bounds of Stochastic Linear Bandits</h1>
+        <h2>Theorem 24.1 Lower Bounds for Hypercube Action Set</h2>
+        <li>
+            Let \(\mathcal{A} = {\left\lbrack  -1,1\right\rbrack  }^{d}\) and \(\Theta  = {\left\{  -{n}^{-1/2},{n}^{-1/2}\right\}  }^{d}\), then for any policy, there exists a \(\theta  \in  \Theta\) such that
+            \[{R}_{n}\left( {\mathcal{A},\theta }\right)  \geq  \frac{\exp \left( {-2}\right) }{8}d\sqrt{n}.\]
+        </li>
+        <h2>Theorem 24.2 Lower Bounds for Unit Ball Action Set</h2>
+        <li>
+            Assume \( d \leq  {2n} \) and let \( \mathcal{A} = \left\{  {x \in  {\mathbb{R}}^{d} : \parallel x{\parallel }_{2} \leq  1}\right\} \) . Then there exists a parameter vector \( \theta  \in  {\mathbb{R}}^{d} \) with \( \parallel \theta {\parallel }_{2}^{2} = {d}^{2}/\left( {48n}\right) \) such that 
+            \[{R}_{n}\left( {\mathcal{A},\theta }\right)  \geq  d\sqrt{n}/\left( {{16}\sqrt{3}}\right) \] .
+        </li>
+
+    </div>
+    <div class="slide-number">5/5</div>
+</div>
+
+<div class="slide" id="slide6" style="height: 220vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Minimax Lower Bounds of Stochastic Linear Bandits</h1>
+        <h2>Proof of Theorem 24.1</h2>
+        <li>Divergence Decomposition for Gaussian, for More General Action Space:
+            \[\mathrm{D}\left( {{\mathbb{P}}_{\theta },{\mathbb{P}}_{{\theta }^{\prime }}}\right)  = {\mathbb{E}}_{\theta }\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathrm{D}\left( {\mathcal{N}\left( {\left\langle  {{A}_{t},\theta }\right\rangle  ,1}\right) ,\mathcal{N}\left( {\left\langle  {{A}_{t},{\theta }^{\prime }}\right\rangle  ,1}\right) }\right) }\right\rbrack\]
+            \[= \frac{1}{2}\mathop{\sum }\limits_{{t = 1}}^{n}{\mathbb{E}}_{\theta }\left\lbrack  {\left\langle  {A}_{t},\theta  - {\theta }^{\prime }\right\rangle  }^{2}\right\rbrack  . \tag{24.1}\]
+        </li>
+        <li>
+            Apply Bratagnolle-Huber Inequality:
+Define 
+\[{p}_{\theta i} = {\mathbb{P}}_{\theta }\left( {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {\operatorname{sign}\left( {A}_{ti}\right)  \neq  \operatorname{sign}\left( {\theta }_{i}\right) }\right\}   \geq  n/2}\right) .\]
+Let \({\theta }_{i}^{\prime } =  - {\theta }_{i}\), and \({\theta }_{j}^{\prime } = {\theta }_{j}\) when \(j\neq i\), then
+\[{p}_{\theta i} + {p}_{{\theta }^{\prime }i} \geq  \frac{1}{2}\exp \left( {-\frac{1}{2}\mathop{\sum }\limits_{{t = 1}}^{n}{\mathbb{E}}_{\theta }\left\lbrack  {\left\langle  {A}_{t},\theta  - {\theta }^{\prime }\right\rangle  }^{2}\right\rbrack  }\right)  \geq  \frac{1}{2}\exp \left( {-2}\right) . \tag{24.2}\]
+Averaging over \(\Theta\),
+\[\mathop{\sum }\limits_{{\theta  \in  \Theta }}\frac{1}{\left| \Theta \right| }\mathop{\sum }\limits_{{i = 1}}^{d}{p}_{\theta i} = \frac{1}{\left| \Theta \right| }\mathop{\sum }\limits_{{i = 1}}^{d}\mathop{\sum }\limits_{{\theta  \in  \Theta }}{p}_{\theta i} \geq  \frac{d}{4}\exp \left( {-2}\right) .\]
+由于LHS是均值，所以均值对象肯定有一个\(\geq RHS\), 否则没有一个大于右式的话均值不可能大于右式。因此存在\(\theta  \in  \Theta\) 使得
+\[\mathop{\sum }\limits_{{i = 1}}^{d}{p}_{\theta i} \geq  d\exp \left( {-2}\right) /4\]
+        </li>
+        <li>
+            Rewrite Regret:
+\[{R}_{n}\left( {\mathcal{A},\theta }\right)  = {\mathbb{E}}_{\theta }\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathop{\sum }\limits_{{i = 1}}^{d}\left( {a_i^*- {A}_{ti}}\right) {\theta }_{i}}\right\rbrack\]
+\[= {\mathbb{E}}_{\theta }\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathop{\sum }\limits_{{i = 1}}^{d}\left( {\operatorname{sign}\left( {\theta }_{i}\right)  - {A}_{ti}}\right) {\theta }_{i}}\right\rbrack\]
+\[\geq  \sqrt{\frac{1}{n}}\mathop{\sum }\limits_{{i = 1}}^{d}{\mathbb{E}}_{\theta }\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {\operatorname{sign}\left( {A}_{ti}\right)  \neq  \operatorname{sign}\left( {\theta }_{i}\right) }\right\}  }\right\rbrack\]
+（来自关于符号的分类讨论）
+\[\geq  \frac{\sqrt{n}}{2}\mathop{\sum }\limits_{{i = 1}}^{d}{\mathbb{P}}_{\theta }\left( {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {\operatorname{sign}\left( {A}_{ti}\right)  \neq  \operatorname{sign}\left( {\theta }_{i}\right) }\right\}   \geq  n/2}\right)\]
+（来自Markov Inequality）
+\[= \frac{\sqrt{n}}{2}\mathop{\sum }\limits_{{i = 1}}^{d}{p}_{\theta i} \geq  \frac{\exp \left( {-2}\right) }{8}d\sqrt{n},\]
+（在特定的\(\theta\)下成立)
+        </li>
+        </div>
+    <div class="slide-number">5/5</div>
+</div>
+
+<div class="slide" id="slide7" style="height: 260vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Minimax Lower Bounds of Stochastic Linear Bandits</h1>
+        <h2>Proof of Theorem 24.2</h2>
+        <li>
+            Let \(\Delta  = \frac{1}{4\sqrt{3}}\sqrt{d/n}\) and \(\theta  \in  \{  \pm  \Delta {\} }^{d}\) and
+            define \({\tau }_{i} = n \land  \min \{ t: \left. {\mathop{\sum }\limits_{{s = 1}}^{t}{A}_{si}^{2} \geq  n/d}\right\}\)
+        </li>
+        <li>
+            Regret Decomposition:
+            \[
+            \begin{aligned}
+            R_n &= \mathbb{E}_\theta \left[ \sum_{t=1}^n \sum_{i=1}^d \theta_i (a_i^* - A_{ti}) \right] \\
+            &= \mathbb{E}_\theta \left[ \sum_{t=1}^n \sum_{i=1}^d \theta_i \left( \frac{1}{\sqrt{d}} \operatorname{sign}(\theta_i) - A_{ti} \right) \right]
+            \\
+            &= \Delta \, \mathbb{E}_\theta \left[ \sum_{t=1}^n \sum_{i=1}^d \left( \frac{1}{\sqrt{d}} - A_{ti} \operatorname{sign}(\theta_i) \right) \right]
+            \end{aligned}\]
+            \[\geq  \frac{\Delta \sqrt{d}}{2}{\mathbb{E}}_{\theta }\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathop{\sum }\limits_{{i = 1}}^{d}{\left( \frac{1}{\sqrt{d}} - {A}_{ti}\operatorname{sign}\left( {\theta }_{i}\right) \right) }^{2}}\right\rbrack\]
+            \[\geq  \frac{\Delta \sqrt{d}}{2}\mathop{\sum }\limits_{{i = 1}}^{d}{\mathbb{E}}_{\theta }\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{{\tau }_{i}}{\left( \frac{1}{\sqrt{d}} - {A}_{ti}\operatorname{sign}\left( {\theta }_{i}\right) \right) }^{2}}\right\rbrack  ,\]
+
+        </li>
+        <li>
+            Applying Pinsker's Inequality:
+            let \({U}_{i}\left( x\right)  = \mathop{\sum }\limits_{{t = 1}}^{{\tau }_{i}}{\left( 1/\sqrt{d} - {A}_{ti}x\right) }^{2}\), because
+\[{U}_{i}\left( 1\right)  = \mathop{\sum }\limits_{{t = 1}}^{{\tau }_{i}}{\left( 1/\sqrt{d} - {A}_{ti}\right) }^{2} \leq  2\mathop{\sum }\limits_{{t = 1}}^{{\tau }_{i}}\frac{1}{d} + 2\mathop{\sum }\limits_{{t = 1}}^{{\tau }_{i}}{A}_{ti}^{2} \leq  \frac{4n}{d} + 2,\]
+then 
+\[{\mathbb{E}}_{\theta ^{\prime }}\left\lbrack  {{U}_{i}\left( 1\right) }\right\rbrack   -{\mathbb{E}}_{{\theta }}\left\lbrack  {{U}_{i}\left( 1\right) }\right\rbrack\leq  \frac{4n}{d} + 2\]
+\[{\mathbb{E}}_{\theta }\left\lbrack  {{U}_{i}\left( 1\right) }\right\rbrack   \geq  {\mathbb{E}}_{{\theta }^{\prime }}\left\lbrack  {{U}_{i}\left( 1\right) }\right\rbrack   - \left( {\frac{4n}{d} + 2}\right) \sqrt{\frac{1}{2}\mathrm{D}\left( {\mathbb{P},{\mathbb{P}}^{\prime }}\right) }\]
+        </li>
+        <li>KL (Relative) Entropy for Gausssian Distribution:
+            $$
+            \mathrm{D}(P_i, P_i')=D\left( \mathcal{N}(\mu, 1) \parallel \mathcal{N}(\mu', 1) \right) = \frac{1}{2} (\mu - \mu')^2 = \frac{1}{2} \Delta^2
+            $$
+        </li>
+        <li>
+            Applying Stopping-Time Version of Divergence Decompostion:
+            \[  {\mathbb{E}}_{{\theta }}\left\lbrack  {{U}_{i}\left( 1\right) }\right\rbrack \geq  {\mathbb{E}}_{{\theta }^{\prime }}\left\lbrack  {{U}_{i}\left( 1\right) }\right\rbrack   - \frac{\Delta }{2}\left( {\frac{4n}{d} + 2}\right) \sqrt{\mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{{\tau }_{i}}{A}_{ti}^{2}}\right\rbrack  } \tag{24.3}\]
+            \[\geq  {\mathbb{E}}_{{\theta }^{\prime }}\left\lbrack  {{U}_{i}\left( 1\right) }\right\rbrack   - \frac{\Delta }{2}\left( {\frac{4n}{d} + 2}\right) \sqrt{\frac{n}{d} + 1} \tag{24.4}\]
+            (by definition)
+            \[\geq  {\mathbb{E}}_{{\theta }^{\prime }}\left\lbrack  {{U}_{i}\left( 1\right) }\right\rbrack   - \frac{4\sqrt{3}{\Delta n}}{d}\sqrt{\frac{n}{d}}, \tag{24.5}\]
+            (by assumption that \(d\leq2n\))
+        </li>
+        <li>
+            Therefore,
+\[{\mathbb{E}}_{\theta }\left\lbrack  {{U}_{i}\left( 1\right) }\right\rbrack   + {\mathbb{E}}_{{\theta }^{\prime }}\left\lbrack  {{U}_{i}\left( {-1}\right) }\right\rbrack   \geq  {\mathbb{E}}_{{\theta }^{\prime }}\left\lbrack  {{U}_{i}\left( 1\right)  + {U}_{i}\left( {-1}\right) }\right\rbrack   - \frac{4\sqrt{3}{n\Delta }}{d}\sqrt{\frac{n}{d}}\]
+\[= 2{\mathbb{E}}_{{\theta }^{\prime }}\left\lbrack  {\frac{{\tau }_{i}}{d} + \mathop{\sum }\limits_{{t = 1}}^{{\tau }_{i}}{A}_{ti}^{2}}\right\rbrack   - \frac{4\sqrt{3}{n\Delta }}{d}\sqrt{\frac{n}{d}} \geq  \frac{2n}{d} - \frac{4\sqrt{3}{n\Delta }}{d}\sqrt{\frac{n}{d}} = \frac{n}{d}.\]
+        </li>
+        <li>
+            Finally using randomization hammer,
+        \[\mathop{\sum }\limits_{{\theta  \in  \{  \pm  \Delta {\} }^{d}}}{R}_{n}\left( {\mathcal{A},\theta }\right)  \geq  \frac{\Delta \sqrt{d}}{2}\mathop{\sum }\limits_{{i = 1}}^{d}\mathop{\sum }\limits_{{\theta  \in  \{  \pm  \Delta {\} }^{d}}}{\mathbb{E}}_{\theta }\left\lbrack  {{U}_{i}\left( {\operatorname{sign}\left( {\theta }_{i}\right) }\right) }\right\rbrack\]
+        \[= \frac{\Delta \sqrt{d}}{2}\mathop{\sum }\limits_{{i = 1}}^{d}\mathop{\sum }\limits_{{{\theta }_{-i} \in  \{  \pm  \Delta {\} }^{d - 1}}}\mathop{\sum }\limits_{{{\theta }_{i} \in  \{  \pm  \Delta \} }}{\mathbb{E}}_{\theta }\left\lbrack  {{U}_{i}\left( {\operatorname{sign}\left( {\theta }_{i}\right) }\right) }\right\rbrack\]
+        \[\geq  \frac{\Delta \sqrt{d}}{2}\mathop{\sum }\limits_{{i = 1}}^{d}\mathop{\sum }\limits_{{{\theta }_{-i} \in  \{  \pm  \Delta {\} }^{d - 1}}}\frac{n}{d} = {2}^{d - 2}{n\Delta }\sqrt{d}.\]
+        </li>
+        <li>
+            hence
+\[{R}_{n}\left( {\mathcal{A},\theta }\right)  \geq  \frac{{n\Delta }\sqrt{d}}{4} = \frac{d\sqrt{n}}{{16}\sqrt{3}}\]
+        </li>
+        </div>
+
+    <div class="slide-number">7/7</div>
+</div>
+
+<!-- 导航按钮 Navigation buttons -->
+<div class="navigation">
+    <button class="nav-btn" onclick="prevSlide()">Prev</button>
+    <button class="nav-btn" onclick="nextSlide()">Next</button>
+</div>
+
+<!-- PDF 查看弹窗 PDF modal -->
+<div id="pdfModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000;">
+    <div id="pdfDialog" style="position: relative; width: 80%; height: 80%; margin: 5% auto; background-color: white; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <button onclick="closePDF()" style="position: absolute; top: 10px; right: 10px; padding: 5px 10px; background-color: #003366; color: white; border: none; cursor: pointer;">Close</button>
+        <button onclick="shrinkPDF()" style="position: absolute; top: 10px; right: 80px; padding: 5px 10px; background-color: #eee; color: #003366; border: 1px solid #003366; cursor: pointer;">Minimize</button>
+        <iframe id="pdfViewer" style="width: 100%; height: 90%; border: none; margin-top: 40px;"></iframe>
+    </div>
+</div>
+<!-- 收缩后的小按钮 -->
+<div id="pdfShrinkBtn" style="display:none; position: fixed; top: 50%; right: 0; z-index: 2001; background: #003366; color: #fff; border-radius: 8px 0 0 8px; padding: 12px 8px; cursor: pointer; font-weight: bold;">PDF</div>
+
+<script>
+// 当前页码 current slide number
+let currentSlide = 1;
+const totalSlides = document.querySelectorAll('.slide').length;
+
+// 显示指定页码 show slide by number
+function showSlide(slideNumber) {
+    document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+    });
+    document.getElementById('slide' + slideNumber).classList.add('active');
+    currentSlide = slideNumber;
+    // 更新页码 update slide number
+    document.querySelectorAll('.slide-number').forEach((el, idx) => {
+        el.textContent = (idx+1) + '/' + totalSlides;
+    });
+}
+// 下一页 next
+function nextSlide() {
+    if (currentSlide < totalSlides) showSlide(currentSlide + 1);
+}
+// 上一页 prev
+function prevSlide() {
+    if (currentSlide > 1) showSlide(currentSlide - 1);
+}
+// 键盘左右键切换 keyboard navigation
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowRight') nextSlide();
+    else if (event.key === 'ArrowLeft') prevSlide();
+});
+let pdfScrollTop = 0;
+let pdfPathCache = '';
+
+function openPDF(pdfPath) {
+    const iframe = document.getElementById('pdfViewer');
+    document.getElementById('pdfModal').style.display = 'block';
+    document.getElementById('pdfShrinkBtn').style.display = 'none';
+    // 只在首次或切换文档时重载
+    if (pdfPathCache !== pdfPath) {
+        iframe.src = pdfPath;
+        pdfPathCache = pdfPath;
+        pdfScrollTop = 0;
+        iframe.onload = function() {
+            iframe.contentWindow.scrollTo(0, 0);
+        };
+    } else {
+        // 恢复滚动位置
+        iframe.onload = function() {
+            iframe.contentWindow.scrollTo(0, pdfScrollTop);
+        };
+        // 若已加载，直接滚动
+        setTimeout(function() {
+            try { iframe.contentWindow.scrollTo(0, pdfScrollTop); } catch(e){}
+        }, 300);
+    }
+    return false;
+}
+function closePDF() {
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfViewer').src = '';
+    pdfPathCache = '';
+    pdfScrollTop = 0;
+}
+function shrinkPDF() {
+    // 记录滚动位置
+    try {
+        const iframe = document.getElementById('pdfViewer');
+        pdfScrollTop = iframe.contentWindow.scrollY || iframe.contentWindow.document.documentElement.scrollTop || 0;
+    } catch(e) { pdfScrollTop = 0; }
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfShrinkBtn').style.display = 'block';
+}
+document.getElementById('pdfShrinkBtn').onclick = function() {
+    document.getElementById('pdfModal').style.display = 'block';
+    document.getElementById('pdfShrinkBtn').style.display = 'none';
+    // 恢复滚动位置
+    const iframe = document.getElementById('pdfViewer');
+    iframe.onload = function() {
+        iframe.contentWindow.scrollTo(0, pdfScrollTop);
+    };
+    setTimeout(function() {
+        try { iframe.contentWindow.scrollTo(0, pdfScrollTop); } catch(e){}
+    }, 300);
+};
+// 图片弹窗 open image modal
+function openJPG(imagePath) {
+    // 创建图片弹窗 create image modal
+    const imageModal = document.createElement('div');
+    imageModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 1000; display: flex; justify-content: center; align-items: center;';
+    const imageContainer = document.createElement('div');
+    imageContainer.style.cssText = 'position: relative; max-width: 90vw; max-height: 90vh; background: #fff; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); overflow: auto;';
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '关闭 Close';
+    closeButton.style.cssText = 'position: absolute; top: 10px; right: 10px; padding: 5px 10px; background: #003366; color: #fff; border: none; cursor: pointer;';
+    closeButton.onclick = function() { document.body.removeChild(imageModal); };
+    const image = document.createElement('img');
+    image.src = imagePath;
+    image.style.cssText = 'max-width: 100%; max-height: 80vh; display: block; margin: 30px auto 10px;';
+    imageContainer.appendChild(closeButton);
+    imageContainer.appendChild(image);
+    imageModal.appendChild(imageContainer);
+    document.body.appendChild(imageModal);
+    return false;
+}
+</script>
+</body>
+</html> 

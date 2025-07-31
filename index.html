@@ -158,6 +158,7 @@
 <div id="sideMenu" style="display:none; position: fixed; top: 0; left: 0; width: 220px; height: 100vh; background: #fff; box-shadow: 2px 0 8px rgba(0,0,0,0.08); z-index: 3100; padding-top: 60px;">
   <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(1)">Presentation 1</div>
   <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(2)">Presentation 2</div>
+  <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(3)">Presentation 3</div>
 </div>
 <div id="sideMenuOverlay" style="display:none; position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.1); z-index: 3099;" onclick="closeSideMenu()"></div>
 
@@ -491,6 +492,10 @@
     <iframe id="presentation2Frame" src="Bandits_partI.II.html" style="width:100vw; height:100vh; border:none; margin:0; padding:0; display:block;"></iframe>
   </div>
 
+<div id="presentation3" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; margin:0; padding:0; border:none; z-index:2000;">
+<iframe id="presentation3Frame" src="Bandits_partIV.V.html" style="width:100vw; height:100vh; border:none; margin:0; padding:0; display:block;"></iframe>
+</div>
+
     <script>
         let currentSlide = 1;
         const totalSlides = 10;
@@ -672,6 +677,7 @@
         function switchPresentation(idx) {
           document.getElementById('presentation1').style.display = idx === 1 ? '' : 'none';
           document.getElementById('presentation2').style.display = idx === 2 ? '' : 'none';
+          document.getElementById('presentation3').style.display = idx === 3 ? '' : 'none';
           closeSideMenu();
           if(idx === 1) {
             // 重置slide到第一页
