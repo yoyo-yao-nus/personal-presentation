@@ -171,6 +171,14 @@
         <h2>Minimax Regret</h2>
         <li>\[{R}_{n}^{ * }\left( \mathcal{E}\right)  = \mathop{\inf }\limits_{{\pi  \in  \Pi }}{R}_{n}\left( {\pi ,\mathcal{E}}\right)  = \mathop{\inf }\limits_{{\pi  \in  \Pi }}\mathop{\sup }\limits_{{\nu  \in  \mathcal{E}}}{R}_{n}\left( {\pi ,\nu }\right) .\]
         </li>
+        <h2>Relative Entropy</h2>
+        <li>
+            \[\mathrm{D}\left( {P,Q}\right)  = \mathop{\sum }\limits_{{i \in  \left\lbrack  N\right\rbrack   : {p}_{i} > 0}}{p}_{i}\log \left( \frac{1}{{q}_{i}}\right)  - \mathop{\sum }\limits_{{i \in  \left\lbrack  N\right\rbrack   : {p}_{i} > 0}}{p}_{i}\log \left( \frac{1}{{p}_{i}}\right)  = \mathop{\sum }\limits_{{i \in  \left\lbrack  N\right\rbrack   : {p}_{i} > 0}}{p}_{i}\log \left( \frac{{p}_{i}}{{q}_{i}}\right)\]
+        </li>
+        <h2>Relative Entropy for Gaussian Distribution</h2>
+        <li>
+            \[\mathrm{D}\left( {{P}_{1},{P}_{2}}\right)  = \frac{1}{2}\left( {\log \left( \frac{{\sigma }_{2}^{2}}{{\sigma }_{1}^{2}}\right)  + \frac{{\sigma }_{1}^{2}}{{\sigma }_{2}^{2}} - 1}\right)  + \frac{{\left( {\mu }_{1} - {\mu }_{2}\right) }^{2}}{2{\sigma }_{2}^{2}}.\]
+        </li>
         <h2>Pinsker's Inequality</h2>
         <li>
             \[\delta \left( {P,Q}\right)  = \mathop{\sup }\limits_{{A \in  \mathcal{F}}}Q\left( A\right)  - P\left( A\right)  = \mathop{\sup }\limits_{{A \in  \mathcal{F}}}P\left( A\right)  - Q\left( A\right)  \leq  \sqrt{\frac{1}{2}\mathrm{D}\left( {P,Q}\right) }\]
@@ -188,10 +196,6 @@
             Let i be suboptimal in $\nu$ and uniquely optimal in $\nu\prime$ and \(\lambda  = {\mu }_{i}\left( {\nu }^{\prime }\right)  - {\mu }_{i}\left( \nu \right)\),
 \[{\mathbb{E}}_{\nu \pi }\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   \geq  \frac{\log \left( \frac{\min \left\{  {\lambda  - {\Delta }_{i}\left( \nu \right) ,{\Delta }_{i}\left( \nu \right) }\right\}  }{4}\right)  + \log \left( n\right)  - \log \left( {{R}_{n}\left( \nu \right)  + {R}_{n}\left( {\nu }^{\prime }\right) }\right) }{\mathrm{D}\left( {{P}_{i},{P}_{i}^{\prime }}\right) }. \tag{16.4}\]
         </li>
-        <h2>Relative Entropy for Gaussian Distribution</h2>
-        <li>
-            \[\mathrm{D}\left( {{P}_{1},{P}_{2}}\right)  = \frac{1}{2}\left( {\log \left( \frac{{\sigma }_{2}^{2}}{{\sigma }_{1}^{2}}\right)  + \frac{{\sigma }_{1}^{2}}{{\sigma }_{2}^{2}} - 1}\right)  + \frac{{\left( {\mu }_{1} - {\mu }_{2}\right) }^{2}}{2{\sigma }_{2}^{2}}.\]
-        </li>
         <h2>Stopping-Time Version of Divergence Decomposition</h2>
         <li>
             \[\mathrm{D}\left( {{\mathbb{P}}_{\nu X},{\mathbb{P}}_{{\nu }^{\prime }X}}\right)  \leq  \mathop{\sum }\limits_{{i = 1}}^{k}{\mathbb{E}}_{\nu }\left\lbrack  {{T}_{i}\left( \tau \right) }\right\rbrack  \mathrm{D}\left( {{P}_{i},{P}_{i}^{\prime }}\right)\]
@@ -201,7 +205,7 @@
             \[\mathrm{D}\left( {{\mathbb{P}}_{\nu },{\mathbb{P}}_{{\nu }^{\prime }}}\right)  = \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathrm{D}\left( {{P}_{{A}_{t}},{P}_{{A}_{t}}^{\prime }}\right) }\right\rbrack\]
         </li>
     </div>
-    <div class="slide-number">1/2</div>
+    <div class="slide-number">1/7</div>
 </div>
 
 <!-- Slide 2 示例 Example -->
@@ -216,7 +220,7 @@
         <h2>Theorem 16.4 Instance-Dependent Lower Bounds</h2>
         <li>
             Let \(\mathcal{E}\left( \nu \right)  = \left\{  {{\nu }^{\prime } \in  {\mathcal{E}}_{\mathcal{N}}^{k} : {\mu }_{i}\left( {\nu }^{\prime }\right)  \in  \left\lbrack  {{\mu }_{i},{\mu }_{i} + 2{\Delta }_{i}}\right\rbrack  ,1 \leq  i \leq  k}\right\}\),
-            for all \(\varepsilon\in(0,1]\) and \(n\in\mathcal(N)\),
+            for all \(\varepsilon\in(0,1]\) and \(n\in \mathcal{N}\),
             \[{R}_{n}\left( {\pi ,\nu }\right)  \geq  \frac{2}{{\left( 1 + \varepsilon \right) }^{2}}\mathop{\sum }\limits_{{i : {\Delta }_{i} > 0}}{\left( \frac{\left( {1 - p}\right) \log \left( n\right)  + \log \left( \frac{\varepsilon {\Delta }_{i}}{8C}\right) }{{\Delta }_{i}}\right) }^{ + }.\]
         </li>
         </div>
@@ -317,11 +321,11 @@ Averaging over \(\Theta\),
 \[{R}_{n}\left( {\mathcal{A},\theta }\right)  = {\mathbb{E}}_{\theta }\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathop{\sum }\limits_{{i = 1}}^{d}\left( {a_i^*- {A}_{ti}}\right) {\theta }_{i}}\right\rbrack\]
 \[= {\mathbb{E}}_{\theta }\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathop{\sum }\limits_{{i = 1}}^{d}\left( {\operatorname{sign}\left( {\theta }_{i}\right)  - {A}_{ti}}\right) {\theta }_{i}}\right\rbrack\]
 \[\geq  \sqrt{\frac{1}{n}}\mathop{\sum }\limits_{{i = 1}}^{d}{\mathbb{E}}_{\theta }\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {\operatorname{sign}\left( {A}_{ti}\right)  \neq  \operatorname{sign}\left( {\theta }_{i}\right) }\right\}  }\right\rbrack\]
-（来自关于符号的分类讨论）
+(case-based analysis for the sign of \(\theta\) and \(A_{ti}\))
 \[\geq  \frac{\sqrt{n}}{2}\mathop{\sum }\limits_{{i = 1}}^{d}{\mathbb{P}}_{\theta }\left( {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {\operatorname{sign}\left( {A}_{ti}\right)  \neq  \operatorname{sign}\left( {\theta }_{i}\right) }\right\}   \geq  n/2}\right)\]
-（来自Markov Inequality）
+(Markov Inequality)
 \[= \frac{\sqrt{n}}{2}\mathop{\sum }\limits_{{i = 1}}^{d}{p}_{\theta i} \geq  \frac{\exp \left( {-2}\right) }{8}d\sqrt{n},\]
-（在特定的\(\theta\)下成立)
+(holds with a certain \(\theta\))
         </li>
         </div>
     <div class="slide-number">5/5</div>
