@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yao's Presentation</title>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+        </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Times New Roman', serif;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            padding: 50px;
+            box-sizing: border-box;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #005599;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .figure-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            border: 2px dashed #999;
+            font-style: italic;
+            color: #666;
+        }
+        .pdf-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+        .pdf-link:hover {
+            background-color: #004488;
+        }
+        .figure-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+        .figure-link:hover {
+            background-color: #004488;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
+        .nav-btn:hover {
+            background-color: #004488;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            color: #666;
+            font-family: Arial, sans-serif;
+            background: rgba(255,255,255,0.85);
+            border-radius: 8px;
+            padding: 4px 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            pointer-events: none;
+        }
+        ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        p {
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div id="pdfBoxBtn" style="position: fixed; top: 20px; right: 24px; z-index: 2000;">
+    <a href="#" class="pdf-link" style="border-radius: 0; border: 1.5px solid #003366; background: #fff; color: #003366; font-weight: bold; box-shadow: 0 2px 6px rgba(0,0,0,0.07); padding: 8px 18px;" onclick="openPDF('books/book.pdf')">view book</a>
+</div>
+<!--
+    使用说明 Usage:
+    1. 每一页幻灯片用 <div class="slide" id="slideN"> 包裹内容，N为页码。
+    2. 只需复制 .slide 块并修改内容即可添加新页面。
+    3. 支持数学公式、图片、PDF弹窗。
+    4. 支持键盘左右键/按钮切换页面。
+    5. 手机端自适应。
+-->
+
+<!-- Slide 1 示例 Example -->
+
+<div class="slide active" id="slide1" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Pure Exploration</h1>
+        <h2>Simple Regret</h2>
+        <li>\[{R}_{n}^{\mathrm{{SIMPLE}}}\left( {\pi ,\nu }\right)  = {\mathbb{E}}_{\nu \pi }\left\lbrack  {{\Delta }_{{A}_{n + 1}}\left( \nu \right) }\right\rbrack  .\]</li>
+        <h2>Uniform Exploration</h2>
+        <li>Explore each arm in the first \(n\) rounds and select the empirically best arm in round \(n+1\).</li>
+        <h2>Theorem 33.1 - UE Regret Bound</h2>
+        <li>Let \(\nu  \in  {\mathcal{E}}_{SG}^{k}\left( 1\right)\) be a 1-subgaussian bandit, then for all \(n\geq k\),
+            \[{R}_{n}^{\text{SIMPLE }}\left( {\pi ,\nu }\right)  \leq  \mathop{\min }\limits_{{\Delta  \geq  0}}\left( {\Delta  + \mathop{\sum }\limits_{{i : {\Delta }_{i}\left( \nu \right)  > \Delta }}{\Delta }_{i}\left( \nu \right) \exp \left( {-\frac{\lfloor n/k\rfloor {\Delta }_{i}{\left( \nu \right) }^{2}}{4}}\right) }\right) .\]
+        </li>
+        <h2>Proof of Theorem 33.1</h2>
+        <li>Markov inequality: Since \({A}_{n + 1} = i\) implies that \({\widehat{\mu }}_{i}\left( n\right)  \geq  {\widehat{\mu }}_{1}\left( n\right)\), and \({T}_{i}\left( n\right)  \geq  \lfloor n/k\rfloor\) is not random, 
+            \[\mathbb{P}\left( {{\widehat{\mu }}_{i}\left( n\right)  \geq  {\widehat{\mu }}_{1}\left( n\right) }\right)  = \mathbb{P}\left( {{\widehat{\mu }}_{i}\left( n\right)  - {\widehat{\mu }}_{1}\left( n\right)  \geq  0}\right)  \leq  \exp \left( {-\frac{\lfloor n/k\rfloor {\Delta }_{i}^{2}}{4}}\right) . \tag{33.1}\]
+        </li>
+        <li>Simple Regret Decomposition: \[{R}_{n}^{\text{SIMPLE}}\left( {\pi ,\nu }\right)  = \mathop{\sum }\limits_{{i = 1}}^{k}{\Delta }_{i}\mathbb{P}\left( {{A}_{n + 1} = i}\right)  \leq  \Delta  + \mathop{\sum }\limits_{{i : {\Delta }_{i} > \Delta }}{\Delta }_{i}\mathbb{P}\left( {{A}_{n + 1} = i}\right) .\]</li>
+        <li>Finally, take the minimum over all \(\Delta\geq 0\).</li>
+        <h2>Proposition 33.2 Relation between Simple Regret and Cumulative Regret</h2>
+        <li>Define \[{\pi }_{n + 1}\left( {i \mid  {a}_{1},{x}_{1},\ldots ,{a}_{n},{x}_{n}}\right)  = \frac{1}{n}\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{a}_{t} = i}\right\}  .\], 
+            then \[{R}_{n}^{SIMPLE}\left( {{\left( {\pi }_{t}\right) }_{t = 1}^{n + 1},\nu }\right)  = \frac{{R}_{n}\left( {\pi ,\nu }\right) }{n},\]
+        </li>
+        <h2>Corollary 33.3 Minimax Simple Regret</h2>  
+        <li>
+            There exist a constant \( 0 < C \) such that for all \( n,k \geq  1 \) ,
+            \[\mathop{\inf }\limits_{\pi }\mathop{\sup }\limits_{\substack{{\nu  \in  {\mathcal{E}}_{SG}^{k}\left( 1\right)  : } \\  {\Delta \left( \nu \right)  \in  {\left\lbrack  0,1\right\rbrack  }^{k}} }}{R}_{n}^{{}^{SIMPLE}}\left( {\pi ,\nu }\right)  \leq  C\sqrt{k/n}.\]
+        </li>
+        <li>May lead to a highly suboptimal policy.</li> 
+    </div>
+    <div class="slide-number">1/7</div>
+</div>
+
+<!-- Slide 2 示例 Example -->
+<div class="slide" id="slide2" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Pure Exploration - BAI with a Fixed Confidence</h1>
+        <h2>Definition 33.4 Soundness of \(\pi,\tau,\psi\)</h2>
+        <li>A triple \( \left( {\pi ,\tau ,\psi }\right) \) is sound at confidence level \( \delta  \in  \left( {0,1}\right) \) for environment class \( \mathcal{E} \) if for all \( \nu  \in  \mathcal{E} \) 
+            \[{\mathbb{P}}_{\nu \pi }\left( {\tau  < \infty \text{ and }{\Delta }_{\psi }\left( \nu \right)  > 0}\right)  \leq  \delta . \tag{33.3}\]
+        </li>
+        <h2>Theorem 33.5 Lower Bound of the Stopping Time</h2>
+        <li>Assume that \( \left( {\pi ,\tau ,\psi }\right) \) is sound for \( \mathcal{E} \) at confidence level \( \delta  \in  \left( {0,1}\right) \) , and let \( \nu  \in  \mathcal{E} \) . Then \( {\mathbb{E}}_{\nu \pi }\left\lbrack  \tau \right\rbrack   \geq  {c}^{ * }\left( \nu \right) \log \left( \frac{1}{4\delta }\right) \) ,where
+            \[{c}^{ * }{\left( \nu \right) }^{-1} = \mathop{\sup }\limits_{{\alpha  \in  {\mathcal{P}}_{k - 1}}}\left( {\mathop{\inf }\limits_{{{\nu }^{\prime } \in  {\mathcal{E}}_{alt}\left( \nu \right) }}\left( {\mathop{\sum }\limits_{{i = 1}}^{k}{\alpha }_{i}\mathrm{\;D}\left( {{\nu }_{i},{\nu }_{i}^{\prime }}\right) }\right) }\right)  \tag{33.4}\]
+        </li>
+        <li>Interpretation of \({c}^{ * }{\left( \nu \right) }^{-1}\):</li>
+        <h2>Proof of Theorem 33.5</h2>
+        <li>
+            Define event \( E = \left\{  {\tau  < \infty \text{and}\psi  \notin  {i}^{ * }\left( {\nu }^{\prime }\right) }\right\}   \in  {\mathcal{F}}_{\tau } \) 
+            then,
+            \[{2\delta } \geq  {\mathbb{P}}_{\nu \pi }\left( {\tau  < \infty \text{ and }\psi  \notin  {i}^{ * }\left( \nu \right) }\right)  + {\mathbb{P}}_{{\nu }^{\prime }\pi }\left( {\tau  < \infty \text{ and }\psi  \notin  {i}^{ * }\left( {\nu }^{\prime }\right) }\right) \]
+            (soundness of \((\pi,\tau,\psi)\))
+            \[ \geq  {\mathbb{P}}_{\nu \pi }\left( {E}^{c}\right)  + {\mathbb{P}}_{{\nu }^{\prime }\pi }\left( E\right) \]
+            (because \( {\mathbb{P}}_{\nu \pi }\left( {\tau  = \infty }\right)  = 0 \) and \( {i}^{ * }\left( \nu \right)  \cap  {i}^{ * }\left( {\nu }^{\prime }\right)  = \varnothing \))
+            \[ \geq  \frac{1}{2}\exp \left( {-\mathop{\sum }\limits_{{i = 1}}^{k}{\mathbb{E}}_{\nu \pi }\left\lbrack  {{T}_{i}\left( \tau \right) }\right\rbrack  \mathrm{D}\left( {{\nu }_{i},{\nu }_{i}^{\prime }}\right) }\right) . \tag{33.5}\]
+            (Bretagnolle-Huber inequality and the stopping time version of Lemma 15.1)
+        </li>
+        <li>
+            Hence,
+            \[\mathop{\sum }\limits_{{i = 1}}^{k}{\mathbb{E}}_{\nu \pi }\left\lbrack  {{T}_{i}\left( \tau \right) }\right\rbrack  \mathrm{D}\left( {{\nu }_{i},{\nu }_{i}^{\prime }}\right)  \geq  \log \left( \frac{1}{4\delta }\right) , \tag{33.6}\]
+        </li>
+        <li>
+            Using the definition of \({c}^{ * }{\left( \nu \right) }^{-1}\),
+            \[\frac{{\mathbb{E}}_{\nu \pi }\left\lbrack  \tau \right\rbrack  }{{c}^{ * }\left( \nu \right) } = {\mathbb{E}}_{\nu \pi }\left\lbrack  \tau \right\rbrack  \mathop{\sup }\limits_{{\alpha  \in  {\mathcal{P}}_{k - 1}}}\mathop{\inf }\limits_{{{\nu }^{\prime } \in  {\mathcal{E}}_{\text{alt }}\left( \nu \right) }}\mathop{\sum }\limits_{{i = 1}}^{k}{\alpha }_{i}\mathrm{D}\left( {{\nu }_{i},{\nu }_{i}^{\prime }}\right) \]
+            \[ \geq  {\mathbb{E}}_{\nu \pi }\left\lbrack  \tau \right\rbrack  \mathop{\inf }\limits_{{{\nu }^{\prime } \in  {\mathcal{E}}_{\text{alt }}\left( \nu \right) }}\mathop{\sum }\limits_{{i = 1}}^{k}\frac{{\mathbb{E}}_{\nu \pi }\left\lbrack  {{T}_{i}\left( \tau \right) }\right\rbrack  }{{\mathbb{E}}_{\nu \pi }\left\lbrack  \tau \right\rbrack  }\mathrm{D}\left( {{\nu }_{i},{\nu }_{i}^{\prime }}\right)  \tag{33.7}\]
+            (the upper bound of \(\alpha_i\geq \alpha^*(v)\))
+            \[ = \mathop{\inf }\limits_{{{\nu }^{\prime } \in  {\mathcal{E}}_{\text{alt }}\left( \nu \right) }}\mathop{\sum }\limits_{{i = 1}}^{k}{\mathbb{E}}_{\nu \pi }\left\lbrack  {{T}_{i}\left( \tau \right) }\right\rbrack  \mathrm{D}\left( {{\nu }_{i},{\nu }_{i}^{\prime }}\right) \]
+            \[ \geq  \log \left( \frac{1}{4\delta }\right).\]
+        </li>
+        </div>
+    <div class="slide-number">2/7</div>
+</div>
+
+<div class="slide" id="slide3" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Pure Exploration - BAI with a Fixed Confidence</h1>
+        <h2>Track-and-Stop Algorithm</h2>
+        <li>Track the optimal distribution of arms and force explorations: 
+            play the arm for which \( t{\widehat{\alpha }}_{i}\left( t\right)  - {T}_{i}\left( t\right) \) is maximised</li>
+        <li>Stop when we are confidence enough to recommend the optimal arm: 
+            if \( \tau  = \min \left\{  {t : {Z}_{t} > }\right. \) \( \left. {{\beta }_{t}\left( \delta \right) }\right\} \) ,then the empirically optimal arm at time \( \tau \) is the best arm with probability at least \( 1 - \delta \) 
+        </li>
+        <h2>Theorem 33.6</h2>
+        <li>
+            There exists a choice of \( {\beta }_{t}\left( \delta \right) \) such that track-and-stop is sound and for all \( \nu  \in  \mathcal{E} \) with \( \left| {{i}^{ * }\left( \nu \right) }\right|  = 1 \) it holds that
+            \[\mathop{\lim }\limits_{{\delta  \rightarrow  0}}\frac{{\mathbb{E}}_{\nu \pi }\left\lbrack  \tau \right\rbrack  }{\log \left( {1/\delta }\right) } = {c}^{ * }\left( \nu \right) .\]
+        </li>
+        <h2>Lemma 33.7</h2>
+        <li>
+            for \( \tau  = \min \left\{  {t : {Z}_{t} \geq  {\beta }_{t}\left( \delta \right) }\right\} \) ,it holds that 
+            \[ \mathbb{P}\left( {{i}^{ * }\left( {\widehat{\nu }\left( \tau \right) }\right)  \neq  {i}^{ * }\left( \nu \right) }\right)  \leq  \delta . \]
+        </li>
+        <h2>Proof of Lemma 33.7</h2>
+        <li>We know from the proof of Theorem 33.5 that
+            \[\mathop{\sum }\limits_{{i = 1}}^{k}{\mathbb{E}}_{\nu \pi }\left\lbrack  {{T}_{i}\left( \tau \right) }\right\rbrack  \mathrm{D}\left( {{\nu }_{i},{\nu }_{i}^{\prime }}\right)  \geq  \log \left( \frac{1}{4\delta }\right) , \tag{33.6}\]
+            Then a reasonable stopping time may be estimated from
+            \[\mathop{\inf }\limits_{{{\nu }^{\prime } \in  {\mathcal{E}}_{\text{alt }}\left( \nu \right) }}\mathop{\sum }\limits_{{i = 1}}^{k}{T}_{i}\left( t\right) \mathrm{D}\left( {{\nu }_{i},{\nu }_{i}^{\prime }}\right)  \gtrsim  \log \left( \frac{1}{\delta }\right) .\]
+            Under the Subgaussian Bandit Environment, we have
+            \[{Z}_{t} = \mathop{\inf }\limits_{{{\nu }^{\prime } \in  {\mathcal{E}}_{\text{alt }}\left( {\widehat{\nu }\left( t\right) }\right) }}\mathop{\sum }\limits_{{i = 1}}^{k}{T}_{i}\left( t\right) \mathrm{D}\left( {{\widehat{\nu }}_{i}\left( t\right) ,{\nu }_{i}^{\prime }}\right)  = \frac{1}{2}\mathop{\inf }\limits_{{{\mu }^{\prime } \in  {\mathcal{E}}_{\text{alt }}\left( {\widehat{\mu }\left( t\right) }\right) }}\mathop{\sum }\limits_{{i = 1}}^{k}{T}_{i}\left( t\right) {\left( {\widehat{\mu }}_{i}\left( t\right)  - {\mu }_{i}\left( {\nu }^{\prime }\right) \right) }^{2}.\]
+        </li>
+        <li>
+            Because \[\left\{  {\nu  \in  {\mathcal{E}}_{\text{alt }}\left( {\widehat{\nu }\left( \tau \right) }\right) }\right\}   \subseteq  \left\{  {\frac{1}{2}\mathop{\sum }\limits_{{i = 1}}^{k}{T}_{i}\left( \tau \right) {\left( {\widehat{\mu }}_{i}\left( \tau \right)  - {\mu }_{i}\right) }^{2} \geq  {\beta }_{\tau }\left( \delta \right) }\right\}  ,\]we have
+            \[\mathbb{P}\left( {1 \notin  {i}^{ * }\left( {\widehat{\nu }\left( \tau \right) }\right) }\right)  = \mathbb{P}\left( {\nu  \in  {\mathcal{E}}_{\text{alt }}\left( {\widehat{\nu }\left( \tau \right) }\right) }\right)  \leq  \mathbb{P}\left( {\frac{1}{2}\mathop{\sum }\limits_{{i = 1}}^{k}{T}_{i}\left( \tau \right) {\left( {\widehat{\mu }}_{i}\left( \tau \right)  - {\mu }_{i}\right) }^{2} \geq  {\beta }_{\tau }\left( \delta \right) }\right) \]
+            \[<\delta\]
+            (Using concentration from Lemma 33.8 and Proposition 33.9)
+        </li>
+        <h2>Proof of Theorem 33.6</h2>
+        <li>
+        As we expect minimization of \((t\alpha_i^*(v)-T_i(t))\), we expect
+        \[{Z}_{t} = \mathop{\inf }\limits_{{\widetilde{\nu } \in  {\mathcal{E}}_{\text{alt }}\left( {\widehat{\nu }\left( t\right) }\right) }}\mathop{\sum }\limits_{{i = 1}}^{k}\frac{{T}_{i}\left( t\right) {\left( {\widehat{\mu }}_{i}\left( t\right)  - {\mu }_{i}\left( \widetilde{\nu }\right) \right) }^{2}}{2}\]
+        \[ \approx  t\mathop{\inf }\limits_{{\widetilde{\nu } \in  {\mathcal{E}}_{\text{alt }}\left( \nu \right) }}\mathop{\sum }\limits_{{i = 1}}^{k}\frac{{\alpha }_{i}^{ * }\left( \nu \right) {\left( {\mu }_{i}\left( \nu \right)  - {\mu }_{i}\left( \widetilde{\nu }\right) \right) }^{2}}{2}\]
+        \[ = \frac{t}{{c}^{ * }\left( \nu \right) }\text{.}\]
+        </li>
+        <li>
+        Given Lemma 33.7, the algorithm should halt when
+        \[\frac{t}{{c}^{ * }\left( \nu \right) } \geq  {\beta }_{t}\left( \delta \right)  = \left( {1 + o\left( 1\right) }\right) \log \left( {1/\delta }\right) ,\]
+        which occurs once \( t \geq  \left( {1 + o\left( 1\right) }\right) {c}^{ * }\left( \nu \right) \log \left( {1/\delta }\right) \) .
+        </li>
+        <li>Hence,
+            \[\mathop{\lim }\limits_{{\delta  \rightarrow  0}}\frac{{\mathbb{E}}_{\nu \pi }\left\lbrack  \tau \right\rbrack  }{\log \left( {1/\delta }\right) } = {c}^{ * }\left( \nu \right) .\]
+        </li>
+        </div>
+    <div class="slide-number">3/7</div>
+</div>
+
+<div class="slide" id="slide4" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Pure Exploration - BAI with a Budget</h1>
+        <h2>Sequential Halving Algorithm</h2>
+        <li>
+            Divides the budget into \( L = \left\lceil  {{\log }_{2}\left( k\right) }\right\rceil \) phases. In the first phase,the algorithm chooses each arm equally often. The bottom half of the arms are then eliminated, and the process is repeated.
+        </li>
+        <li>
+            More efficient than Uniform Exploration when suboptimality gaps are not similar to each other.
+        </li>
+        <h2>Theorem 33.10 Upper Bound of the Suboptimal Probability</h2>
+        <li>If \( {\mu }_{1} \geq  \cdots  \geq  {\mu }_{k} \) and \( \pi \) is sequential halving, then
+            \[{\mathbb{P}}_{\nu \pi }\left( {{\Delta }_{{A}_{n + 1}} > 0}\right)  \leq  3{\log }_{2}\left( k\right) \exp \left( {-\frac{n}{{16}{H}_{2}\left( \mu \right) {\log }_{2}\left( k\right) }}\right) ,\]
+            where \( {H}_{2}\left( \mu \right)  = \mathop{\max }\limits_{{i : {\Delta }_{i} > 0}}\frac{i}{{\Delta }_{i}^{2}} \) .
+        </li>
+        <h2>Proof of Theorem 33.10</h2>
+        <li>
+            Let \[\operatorname{TOPM}\left( {A,m}\right)  = \left\{  {i \in  \left\lbrack  k\right\rbrack   : \mathop{\sum }\limits_{{j \leq  i}}\mathbb{I}\{ j \in  A\}  \leq  m}\right\}.  \]
+        </li>
+        <li>
+            Prove that \(|A_{L+1}| = 1\): because \(L = \log_2(k)\) and \(|A_\ell| = k \cdot 2^{1-\ell}\),
+            \[
+            |A_{L+1}| = k \cdot 2^{1-(L+1)} = k \cdot 2^{-L} = k \cdot \frac{1}{k} = 1.
+            \]
+        </li>
+        <li>
+            Use Markov Inequality to prove that \[\mathbb{P} \left( \hat{\mu}_1^\ell \leq \hat{\mu}_i^\ell \mid i \in A_\ell, 1 \in A_\ell \right) \leq \exp \left( -\frac{T_\ell \Delta_i^2}{4} \right)\].
+        </li>
+        <li>
+            Let \( {\mathcal{A}}_{\ell }^{\prime } = {\mathcal{A}}_{\ell } \smallsetminus  \operatorname{TOPM}\left( {{\mathcal{A}}_{\ell },\left\lceil  {\left| {\mathcal{A}}_{\ell }\right| /4}\right\rceil  }\right) \) be the bottom three-quarters of the arms in round \( \ell \) . 
+        </li>
+        <li>
+            Then if the optimal arm is eliminated after the \( \ell \) th phase, then because 
+            \(|\mathcal{A}_\ell'| = \frac{3}{4} |A_\ell|\), and at least
+            \(|A_\ell|/2\) arms satisfy  \(\hat{\mu}_i^\ell \geq \hat{\mu}_1^\ell\),
+        </li>
+        <li>
+            and even all arms in \(B = \operatorname{TOPM}\left( {{\mathcal{A}}_{\ell },\left\lceil  {\left| {\mathcal{A}}_{\ell }\right| /4}\right\rceil  }\right)\) satisfy \(\hat{\mu}_i^\ell \geq \hat{\mu}_1^\ell\), then
+        </li>
+        <li>
+            \[{N}_{\ell } = \mathop{\sum }\limits_{{i \in  {\mathcal{A}}_{\ell }^{\prime }}}\mathbb{I}\left\{  {{\widehat{\mu }}_{i}^{\ell } \geq    {\widehat{\mu }}_{1}^{\ell }}\right\}   \geq  
+            |A_\ell|/2 - |B| = |A_\ell|/4
+            = \frac{1}{3} \cdot \frac{3}{4} |A_\ell| = \frac{1}{3}\left| {\mathcal{A}}_{\ell }^{\prime }\right| .\]
+            Hence,
+            \[
+            \mathbb{P} \left( 1 \notin A_{\ell+1} \mid A_\ell \right) \leq \mathbb{P} \left( N_\ell \geq \frac{1}{3} |\mathcal{A}_\ell'| \mid A_\ell \right).
+            \]
+            Due to Markov Inequality,
+            \[
+            \mathbb{P} \left( N_\ell \geq \frac{1}{3} |\mathcal{A}_\ell'| \mid A_\ell \right) \leq \frac{\mathbb{E}[N_\ell \mid A_\ell]}{\frac{1}{3} |\mathcal{A}_\ell'|} \leq \frac{3 \mathbb{E}[N_\ell \mid A_\ell]}{|\mathcal{A}_\ell'|}.
+            \]
+        </li>
+        <li>
+            Let \( {i}_{\ell } = \min {\mathcal{A}}_{\ell }^{\prime } \) be the minimum index of the set, which means the corresponding mean reward is the maximum, and \(i_\ell \geq |A_\ell|/4 + 1\geq \frac{k 2^{1-\ell}}{4} \implies 2^{\ell-1} i_\ell \geq 2^{\ell-1} \cdot \frac{k 2^{1-\ell}}{4} = \frac{k}{4} \geq \frac{1}{4}\), then
+            \[
+            \mathbb{E}[N_\ell | A_\ell] = \sum_{i \in \mathcal{A}_\ell'} \mathbb{P} \left( \hat{\mu}_i^\ell \geq \hat{\mu}_1^\ell \mid A_\ell \right) \leq \sum_{i \in \mathcal{A}_\ell'} \exp \left( -\frac{T_\ell \Delta_i^2}{4} \right) \leq |\mathcal{A}_\ell'| \max_{i \in \mathcal{A}_\ell'} \exp \left( -\frac{T_\ell \Delta_i^2}{4} \right) 
+            \]
+            \[
+            = |\mathcal{A}_\ell'|\exp \left( -\min_{i \in \mathcal{A}_\ell'} \frac{T_\ell \Delta_i^2}{4} \right)=|\mathcal{A}_\ell'|\exp\left( -\frac{T_\ell \Delta_{i_\ell}^2}{4}\right)
+            \]
+            \[
+            =|\mathcal{A}_\ell'|\exp\left( -\frac{n 2^{\ell-1}  \Delta_{i_\ell}^2}{4\log_2(k)}\right) \leq |\mathcal{A}_\ell'|\exp\left(-\frac{n \Delta_{i_\ell}^2}{16 i_\ell \log_2(k)} \right)
+            \]
+        </li>
+        <li>
+            Hence,
+            \[
+            \mathbb{P} \left( 1 \notin A_{\ell+1} \mid 1 \in A_\ell \right) \leq 3 \exp \left( -\frac{n \Delta_{i_\ell}^2}{16 i_\ell \log_2(k)} \right).
+            \]
+        </li>
+        <li>
+            Finally,
+            \[
+            \mathbb{P} \left( 1 \notin A_{L+1} \right) \leq \sum_{\ell=1}^{L} \mathbb{P} \left( 1 \notin A_{\ell+1} \mid 1 \in A_\ell \right) \leq \sum_{\ell=1}^{L} 3 \exp \left( -\frac{n \Delta_{i_\ell}^2}{16 i_\ell \log_2(k)} \right).
+            \]
+            where \(L = \log_2(k)\). 
+        </li>
+
+    </div>
+    <div class="slide-number">4/7</div>
+</div>
+
+<div class="slide" id="slide5" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Thomson Sampling - Bayesian Setting</h1>
+        <h2>Thomson Sampling Algorithm</h2>
+        <li>
+            In round \( t \) ,Thompson sampling samples a bandit environment \( {\nu }_{t} \) from the posterior of \( Q \) given \( {A}_{1},{X}_{1},\ldots ,{A}_{t - 1},{X}_{t - 1} \) and then chooses the arm with the largest mean.
+        </li>
+        <h2>Theorem 36.1 Upper Bound of the Bayesian Regret</h2>
+        <li>
+            Let \( \left( {\mathcal{E},\mathfrak{B}\left( \mathcal{E}\right) ,Q,P}\right) \) be a \( k \) -armed Bayesian bandit environment such that for all \( \nu  \in  \mathcal{E} \) and \( i \in  \left\lbrack  k\right\rbrack \) ,the distribution \( {P}_{\nu i} \) is 1-subgaussian (after centering) with mean in \( \left\lbrack  {0,1}\right\rbrack \) . Then the policy \( \pi \) of Thompson sampling satisfies
+            \[{\mathrm{{BR}}}_{n}\left( {\pi ,Q}\right)  \leq  C\sqrt{{kn}\log \left( n\right) },\]
+where \( C > 0 \) is a universal constant.
+        </li>
+        <h2>Proof of Theorem 36.1</h2>
+        <li>
+            Define a clip function of the UCB:
+            \[{U}_{t}\left( i\right)  = {\operatorname{clip}}_{\left\lbrack  0,1\right\rbrack  }\left( {{\widehat{\mu }}_{i}\left( {t - 1}\right)  + \sqrt{\frac{2\log \left( {1/\delta }\right) }{1 \vee  {T}_{i}\left( {t - 1}\right) }}}\right) ,\]
+        </li>
+        <li>
+            Because of the definition of TS algorithm, 
+            \[\mathbb{P}\left( {{A}^{ * } =  \cdot   \mid  {\mathcal{F}}_{t - 1}}\right)  = \mathbb{P}\left( {{A}_{t} =  \cdot   \mid  {\mathcal{F}}_{t - 1}}\right) \;\text{ a.s. } \tag{36.1}\]
+        </li>
+        <li>
+            Define an event \(E\) that
+            for all \( t \in  \left\lbrack  n\right\rbrack \) and \( i \in  \left\lbrack  k\right\rbrack \) ,
+            \[\left| {{\widehat{\mu }}_{i}\left( {t - 1}\right)  - {\mu }_{i}}\right|  < \sqrt{\frac{2\log \left( {1/\delta }\right) }{1 \vee  {T}_{i}\left( {t - 1}\right) }}.\]
+        </li>
+        <li>
+            Bayesian regret is
+            \[{\mathrm{{BR}}}_{n} = \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\left( {{\mu }_{{A}^{ * }} - {\mu }_{{A}_{t}}}\right) }\right\rbrack   = \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{E}\left\lbrack  {{\mu }_{{A}^{ * }} - {\mu }_{{A}_{t}} \mid  {\mathcal{F}}_{t - 1}}\right\rbrack  }\right\rbrack \]
+            and 
+            \[\mathbb{E}\left\lbrack  {{\mu }_{{A}^{ * }} - {\mu }_{{A}_{t}} \mid  {\mathcal{F}}_{t - 1}}\right\rbrack   = \mathbb{E}\left\lbrack  {{\mu }_{{A}^{ * }} - {U}_{t}\left( {A}_{t}\right)  + {U}_{t}\left( {A}_{t}\right)  - {\mu }_{{A}_{t}} \mid  {\mathcal{F}}_{t - 1}}\right\rbrack  \]
+            \[ = \mathbb{E}\left\lbrack  {{\mu }_{{A}^{ * }} - {U}_{t}\left( {A}^{ * }\right)  + {U}_{t}\left( {A}_{t}\right)  - {\mu }_{{A}_{t}} \mid  {\mathcal{F}}_{t - 1}}\right\rbrack  \]
+            \[ = \mathbb{E}\left\lbrack  {{\mu }_{{A}^{ * }} - {U}_{t}\left( {A}^{ * }\right)  \mid  {\mathcal{F}}_{t - 1}}\right\rbrack   + \mathbb{E}\left\lbrack  {{U}_{t}\left( {A}_{t}\right)  - {\mu }_{{A}_{t}} \mid  {\mathcal{F}}_{t - 1}}\right\rbrack  .\]
+            Then, 
+            \[{\mathrm{{BR}}}_{n} = \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\left( {{\mu }_{{A}^{ * }} - {U}_{t}\left( {A}^{ * }\right) }\right)  + \mathop{\sum }\limits_{{t = 1}}^{n}\left( {{U}_{t}\left( {A}_{t}\right)  - {\mu }_{{A}_{t}}}\right) }\right\rbrack  . \tag{36.2}\]
+        </li>
+        <li>
+            Regret Decomposition:
+            <ul>
+            <li>1. On the event \( {E}^{c} \) the terms inside the expectation are bounded by \( {2n} \)</li>
+            <li>2. On the event \( E \) ,the first sum is negative and the second is bounded by
+                \[\mathbb{I}\{ E\} \mathop{\sum }\limits_{{t = 1}}^{n}\left( {{U}_{t}\left( {A}_{t}\right)  - {\mu }_{{A}_{t}}}\right)  = \mathbb{I}\{ E\} \mathop{\sum }\limits_{{t = 1}}^{n}\mathop{\sum }\limits_{{i = 1}}^{k}\mathbb{I}\left\{  {{A}_{t} = i}\right\}  \left( {{U}_{t}\left( i\right)  - {\mu }_{i}}\right) \]
+                \[ \leq  \mathop{\sum }\limits_{{i = 1}}^{k}\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{A}_{t} = i}\right\}  \sqrt{\frac{8\log \left( {1/\delta }\right) }{1 \vee  {T}_{i}\left( {t - 1}\right) }} \leq  \mathop{\sum }\limits_{{i = 1}}^{k}{\int }_{0}^{{T}_{i}\left( n\right) }\sqrt{\frac{8\log \left( {1/\delta }\right) }{s}}{ds}\]
+                \[ = \mathop{\sum }\limits_{{i = 1}}^{k}\sqrt{{32}{T}_{i}\left( n\right) \log \left( {1/\delta }\right) } \leq  \sqrt{{32nk}\log \left( {1/\delta }\right) }.\]
+            </li>
+
+            </ul>
+        </li>
+    </div>
+    <div class="slide-number">5/7</div>
+</div>
+
+<div class="slide" id="slide6" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Thomson Sampling - Frequenist Analysis</h1>
+        <h2>Follow-the-perturbed-leader Algorithm</h2>
+        <li>
+            Choose \( {F}_{1}\left( 1\right) ,\ldots ,{F}_{k}\left( 1\right) \) to be the cumulative distribution functions of the mean reward of each arm for a prior.
+        </li>
+        <li>Let UPDATE be the function that updates the posterior for the played arm.</li>
+        <h2>Theorem 36.2 Upper Bound of the Expected Number of Times Played</h2>
+        <li>Assume that arm 1 is optimal. Let \( i > 1 \) be an action and \( \varepsilon  \in  \mathbb{R} \) be arbitrary.
+            Then
+            \[\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   \leq  1 + \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{s = 0}}^{{n - 1}}\left( {\frac{1}{{G}_{1s}} - 1}\right) }\right\rbrack   + \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{s = 0}}^{{n - 1}}\mathbb{I}\left\{  {{G}_{is} > 1/n}\right\}  }\right\rbrack  , \tag{36.3}\]
+            where \( {G}_{is} = 1 - {F}_{is}\left( {{\mu }_{1} - \varepsilon }\right) \) .
+        </li>
+        <h2>Proof of Theorem 36.2</h2>
+        <li>
+            Define an event \( {E}_{i}\left( t\right)  = \left\{  {{\theta }_{i}\left( t\right)  \leq  }\right. \)\( \left. {{\mu }_{1} - \varepsilon }\right\} \)
+        </li>
+        <li>
+            Decomposition of the expectation of the number of times played for each arm:
+            \[\mathbb{E}\left\lbrack  {{T}_{i}\left( n\right) }\right\rbrack   = \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{A}_{t} = i}\right\}  }\right\rbrack  \]
+            \[ = \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{A}_{t} = i,{E}_{i}\left( t\right) }\right\}  }\right\rbrack   + \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{A}_{t} = i,{E}_{i}^{c}\left( t\right) }\right\}  }\right\rbrack  . \tag{36.4}\]
+        </li>
+        <li>
+            Bound the first term starting rom the countrary fact:
+            \[\mathbb{P}\left( {{A}_{t} = 1,{E}_{i}\left( t\right)  \mid  {\mathcal{F}}_{t - 1}}\right)  \geq  \mathbb{P}\left( {{A}_{t}^{\prime } = i,{E}_{i}\left( t\right) ,{\theta }_{1}\left( t\right)  \geq  {\mu }_{1} - \varepsilon  \mid  {\mathcal{F}}_{t - 1}}\right) \]
+            (\( {\theta }_{1}\left( t\right) \) is conditionally independent of \( {A}_{t}^{\prime } \) and \( {E}_{i}\left( t\right) \) given \( {\mathcal{F}}_{t - 1} \) )
+            \[ = \mathbb{P}\left( {{\theta }_{1}\left( t\right)  \geq  {\mu }_{1} - \varepsilon  \mid  {\mathcal{F}}_{t - 1}}\right) \mathbb{P}\left( {{A}_{t}^{\prime } = i,{E}_{i}\left( t\right)  \mid  {\mathcal{F}}_{t - 1}}\right) \]
+            \[ \geq  \frac{{G}_{1{T}_{1}\left( {t - 1}\right) }}{1 - {G}_{1{T}_{1}\left( {t - 1}\right) }}\mathbb{P}\left( {{A}_{t} = i,{E}_{i}\left( t\right)  \mid  {\mathcal{F}}_{t - 1}}\right) , \tag{36.5}\]
+            (definition of \( {G}_{1s} \) and the fact below)
+            \[\mathbb{P}\left( {{A}_{t} = i,{E}_{i}\left( t\right)  \mid  {\mathcal{F}}_{t - 1}}\right)  \leq  \left( {1 - \mathbb{P}\left( {{\theta }_{1}\left( t\right)  > {\mu }_{1} - \varepsilon  \mid  {\mathcal{F}}_{t - 1}}\right) }\right) \mathbb{P}\left( {{A}_{t}^{\prime } = i,{E}_{i}\left( t\right)  \mid  {\mathcal{F}}_{t - 1}}\right) ,\]
+        </li>
+        <li>
+            Hence,
+            \[\mathbb{P}\left( {{A}_{t} = i,{E}_{i}\left( t\right)  \mid  {\mathcal{F}}_{t - 1}}\right)  \leq  \left( {\frac{1}{{G}_{1{T}_{1}\left( {t - 1}\right) }} - 1}\right) \mathbb{P}\left( {{A}_{t} = 1,{E}_{i}\left( t\right)  \mid  {\mathcal{F}}_{t - 1}}\right) \]
+        </li>
+        <li>
+            Therefore the first term is bounded
+            \[\mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{A}_{t} = i,{E}_{i}\left( t\right) \text{ occurs }}\right\}  }\right\rbrack   \leq  \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\left( {\frac{1}{{G}_{1{T}_{1}\left( {t - 1}\right) }} - 1}\right) \mathbb{P}\left( {{A}_{t} = 1 \mid  {\mathcal{F}}_{t - 1}}\right) }\right\rbrack  \]
+            \[ = \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\left( {\frac{1}{{G}_{1{T}_{1}\left( {t - 1}\right) }} - 1}\right) \mathbb{I}\left\{  {{A}_{t} = 1}\right\}  }\right\rbrack  \]
+            \[ \leq  \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{s = 0}}^{{n - 1}}\left( {\frac{1}{{G}_{1s}} - 1}\right) }\right\rbrack  , \tag{36.6}\]
+        </li>
+        <li>
+            To bound the second term,
+            \[\mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\mathbb{I}\left\{  {{A}_{t} = i,{E}_{i}^{c}\left( t\right) \text{ occurs }}\right\}  }\right\rbrack   \leq  \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t \in  \mathcal{T}}}\mathbb{I}\left\{  {{A}_{t} = i}\right\}  }\right\rbrack   + \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t \notin  \mathcal{T}}}\mathbb{I}\left\{  {{E}_{i}^{c}\left( t\right) }\right\}  }\right\rbrack  \]
+            \[ \leq  \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{s = 0}}^{{n - 1}}\mathbb{I}\left\{  {1 - {F}_{is}\left( {{\mu }_{1} - \varepsilon }\right)  > 1/n}\right\}  }\right\rbrack   + \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t \notin  \mathcal{T}}}\frac{1}{n}}\right\rbrack  \]
+            \[ \leq  \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{s = 0}}^{{n - 1}}\mathbb{I}\left\{  {{G}_{is} > 1/n}\right\}  }\right\rbrack   + 1.\]
+
+        </li>
+    </div>
+    <div class="slide-number">6/7</div>
+</div>
+
+<div class="slide" id="slide7" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Thomson Sampling for Linear Bandits</h1>
+        <h2>Theorem 36.4 Upper Bound of the Bayesian Regret for Linear Bandits</h2>
+        <li>Assume that \( \parallel \theta {\parallel }_{2} \leq  S \) with \( Q \) -probability one and \( \mathop{\sup }\limits_{{a \in  \mathcal{A}}}\parallel a{\parallel }_{2} \leq \) \( L \) and \( \mathop{\sup }\limits_{{a \in  \mathcal{A}}}\left| {\langle a,\theta \rangle }\right|  \leq  1 \) with \( Q \) -probability one.
+            Then \[{\mathrm{{BR}}}_{n} \leq  2 + 2\sqrt{{2dn}{\beta }^{2}\log \left( {1 + \frac{n{S}^{2}{L}^{2}}{d}}\right) },\]
+            where \( \beta  = 1 + \sqrt{2\log \left( n\right)  + d\log \left( {1 + \frac{n{S}^{2}{L}^{2}}{d}}\right) } \) .
+        </li>
+        <h2>Proof of Theorem 36.4</h2>
+        <li>Define the UCB as
+            \[{U}_{t}\left( a\right)  = \left\langle  {a,{\widehat{\theta }}_{t - 1}}\right\rangle   + \beta \parallel a{\parallel }_{{V}_{t - 1}^{-1}},\;\text{ where }{V}_{t} = \frac{1}{{S}^{2}}I + \mathop{\sum }\limits_{{s = 1}}^{t}{A}_{s}{A}_{s}^{\top }.\]
+        </li>
+        <li>
+            Define an event
+            \( E_t = {\begin{Vmatrix}{\widehat{\theta }}_{t - 1} - \theta \end{Vmatrix}}_{{V}_{t - 1}} \leq  \beta , E = \mathop{\bigcap }\limits_{{t = 1}}^{n}{E}_{t} \),
+        </li>
+        <li>
+            Regret Decomposition:
+            \[{\mathrm{{BR}}}_{n} = \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\left\langle  {{A}^{ * } - {A}_{t},\theta }\right\rangle  }\right\rbrack  \]
+\[ = \mathbb{E}\left\lbrack  {{\mathbb{I}}_{{E}^{c}}\mathop{\sum }\limits_{{t = 1}}^{n}\left\langle  {{A}^{ * } - {A}_{t},\theta }\right\rangle  }\right\rbrack   + \mathbb{E}\left\lbrack  {{\mathbb{I}}_{E}\mathop{\sum }\limits_{{t = 1}}^{n}\left\langle  {{A}^{ * } - {A}_{t},\theta }\right\rangle  }\right\rbrack  \]
+\[ \leq  2 + \mathbb{E}\left\lbrack  {{\mathbb{I}}_{E}\mathop{\sum }\limits_{{t = 1}}^{n}\left\langle  {{A}^{ * } - {A}_{t},\theta }\right\rangle  }\right\rbrack  \]
+\[ \leq  2 + \mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}{\mathbb{I}}_{{E}_{t}}\left\langle  {{A}^{ * } - {A}_{t},\theta }\right\rangle  }\right\rbrack  . \tag{36.7}\]
+        </li>
+        <li>
+            Recall that 
+            \[\mathbb{P}\left( {{A}^{ * } =  \cdot   \mid  {\mathcal{F}}_{t - 1}}\right)  = \mathbb{P}\left( {{A}_{t} =  \cdot   \mid  {\mathcal{F}}_{t - 1}}\right) \;\text{ a.s. } \tag{36.1}\]
+            we have
+            \( {\mathbb{E}}_{t - 1}\left( {{U}_{t}\left( {A}^{ * }\right) }\right)  = {\mathbb{E}}_{t - 1}\left( {{U}_{t}\left( {A}_{t}\right) }\right) \) .
+        </li>
+        <li>
+            Hence,
+            \[{\mathbb{E}}_{t - 1}\left\lbrack  {{\mathbb{I}}_{{E}_{t}}\left\langle  {{A}^{ * } - {A}_{t},\theta }\right\rangle  }\right\rbrack   = {\mathbb{I}}_{{E}_{t}}{\mathbb{E}}_{t - 1}\left\lbrack  {\left\langle  {{A}^{ * },\theta }\right\rangle   - {U}_{t}\left( {A}^{ * }\right)  + {U}_{t}\left( {A}_{t}\right)  - \left\langle  {{A}_{t},\theta }\right\rangle  }\right\rbrack  \]
+            \[ \leq  {\mathbb{I}}_{{E}_{t}}{\mathbb{E}}_{t - 1}\left\lbrack  {{U}_{t}\left( {A}_{t}\right)  - \left\langle  {{A}_{t},\theta }\right\rangle  }\right\rbrack  \]
+            \[ \leq  {\mathbb{I}}_{{E}_{t}}{\mathbb{E}}_{t - 1}\left\lbrack  \left\langle  {{A}_{t},{\widehat{\theta }}_{t - 1} - \theta }\right\rangle  \right\rbrack   + \beta {\begin{Vmatrix}{A}_{t}\end{Vmatrix}}_{{V}_{t}^{-1}}\]
+            \[ \leq  {\mathbb{I}}_{{E}_{t}}{\mathbb{E}}_{t - 1}\left\lbrack  {{\begin{Vmatrix}{A}_{t}\end{Vmatrix}}_{{V}_{t}^{-1}}{\begin{Vmatrix}{\widehat{\theta }}_{t - 1} - \theta \end{Vmatrix}}_{{V}_{t}}}\right\rbrack   + \beta {\begin{Vmatrix}{A}_{t}\end{Vmatrix}}_{{V}_{t}^{-1}}\]
+            \[ \leq  {2\beta }{\begin{Vmatrix}{A}_{t}\end{Vmatrix}}_{{V}_{t}^{-1}}.\]        </li>
+        <li>
+            The last inequality above results from the fact that By Theorem 20.5 and Eq. (20.9), \( \mathbb{P}\left( {\text{exists}t \leq  n : {\begin{Vmatrix}{\widehat{\theta }}_{t - 1} - \theta \end{Vmatrix}}_{{V}_{t - 1}} > \beta }\right)  \leq  1/n \) .
+        </li>
+        <li>
+            Because we also have  \( {\mathbb{I}}_{{E}_{t}}\left\langle  {{A}^{ * } - {A}_{t},\theta }\right\rangle   \leq  2 \),
+            \[\mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}{\mathbb{I}}_{{E}_{t}}\left\langle  {{A}^{ * } - {A}_{t},\theta }\right\rangle  }\right\rbrack   \leq  {2\beta }\mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\left( {1 \land  {\begin{Vmatrix}{A}_{t}\end{Vmatrix}}_{{V}_{t}^{-1}}}\right) }\right\rbrack  \]
+\[ \leq  2\sqrt{n{\beta }^{2}\mathbb{E}\left\lbrack  {\mathop{\sum }\limits_{{t = 1}}^{n}\left( {1 \land  {\begin{Vmatrix}{A}_{t}\end{Vmatrix}}_{{V}_{t}^{-1}}^{2}}\right) }\right\rbrack  }\;\text{ (Cauchy-Schwarz) }\]
+\[ \leq  2\sqrt{{2dn}{\beta }^{2}\mathbb{E}\left\lbrack  {\log \left( {1 + \frac{n{S}^{2}{L}^{2}}{d}}\right) }\right\rbrack  }.\] 
+        </li>
+        <li>
+            Finally,
+            \[{\mathrm{{BR}}}_{n} \leq  2 + 2\sqrt{{2dn}{\beta }^{2}\log \left( {1 + \frac{n{S}^{2}{L}^{2}}{d}}\right) }. (Lemma 19.4)\]
+        </li>
+    </div>
+    <div class="slide-number">7/7</div>
+</div>
+
+<!-- 导航按钮 Navigation buttons -->
+<div class="navigation">
+    <button class="nav-btn" onclick="prevSlide()">Prev</button>
+    <button class="nav-btn" onclick="nextSlide()">Next</button>
+</div>
+
+<!-- PDF 查看弹窗 PDF modal -->
+<div id="pdfModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000;">
+    <div id="pdfDialog" style="position: relative; width: 80%; height: 80%; margin: 5% auto; background-color: white; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <button onclick="closePDF()" style="position: absolute; top: 10px; right: 10px; padding: 5px 10px; background-color: #003366; color: white; border: none; cursor: pointer;">Close</button>
+        <button onclick="shrinkPDF()" style="position: absolute; top: 10px; right: 80px; padding: 5px 10px; background-color: #eee; color: #003366; border: 1px solid #003366; cursor: pointer;">Minimize</button>
+        <iframe id="pdfViewer" style="width: 100%; height: 90%; border: none; margin-top: 40px;"></iframe>
+    </div>
+</div>
+<!-- 收缩后的小按钮 -->
+<div id="pdfShrinkBtn" style="display:none; position: fixed; top: 50%; right: 0; z-index: 2001; background: #003366; color: #fff; border-radius: 8px 0 0 8px; padding: 12px 8px; cursor: pointer; font-weight: bold;">PDF</div>
+
+<script>
+// 当前页码 current slide number
+let currentSlide = 1;
+const totalSlides = document.querySelectorAll('.slide').length;
+
+// 显示指定页码 show slide by number
+function showSlide(slideNumber) {
+    document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+    });
+    document.getElementById('slide' + slideNumber).classList.add('active');
+    currentSlide = slideNumber;
+    // 更新页码 update slide number
+    document.querySelectorAll('.slide-number').forEach((el, idx) => {
+        el.textContent = (idx+1) + '/' + totalSlides;
+    });
+}
+// 下一页 next
+function nextSlide() {
+    if (currentSlide < totalSlides) showSlide(currentSlide + 1);
+}
+// 上一页 prev
+function prevSlide() {
+    if (currentSlide > 1) showSlide(currentSlide - 1);
+}
+// 键盘左右键切换 keyboard navigation
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowRight') nextSlide();
+    else if (event.key === 'ArrowLeft') prevSlide();
+});
+let pdfScrollTop = 0;
+let pdfPathCache = '';
+
+function openPDF(pdfPath) {
+    const iframe = document.getElementById('pdfViewer');
+    document.getElementById('pdfModal').style.display = 'block';
+    document.getElementById('pdfShrinkBtn').style.display = 'none';
+    // 只在首次或切换文档时重载
+    if (pdfPathCache !== pdfPath) {
+        iframe.src = pdfPath;
+        pdfPathCache = pdfPath;
+        pdfScrollTop = 0;
+        iframe.onload = function() {
+            iframe.contentWindow.scrollTo(0, 0);
+        };
+    } else {
+        // 恢复滚动位置
+        iframe.onload = function() {
+            iframe.contentWindow.scrollTo(0, pdfScrollTop);
+        };
+        // 若已加载，直接滚动
+        setTimeout(function() {
+            try { iframe.contentWindow.scrollTo(0, pdfScrollTop); } catch(e){}
+        }, 300);
+    }
+    return false;
+}
+function closePDF() {
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfViewer').src = '';
+    pdfPathCache = '';
+    pdfScrollTop = 0;
+}
+function shrinkPDF() {
+    // 记录滚动位置
+    try {
+        const iframe = document.getElementById('pdfViewer');
+        pdfScrollTop = iframe.contentWindow.scrollY || iframe.contentWindow.document.documentElement.scrollTop || 0;
+    } catch(e) { pdfScrollTop = 0; }
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfShrinkBtn').style.display = 'block';
+}
+document.getElementById('pdfShrinkBtn').onclick = function() {
+    document.getElementById('pdfModal').style.display = 'block';
+    document.getElementById('pdfShrinkBtn').style.display = 'none';
+    // 恢复滚动位置
+    const iframe = document.getElementById('pdfViewer');
+    iframe.onload = function() {
+        iframe.contentWindow.scrollTo(0, pdfScrollTop);
+    };
+    setTimeout(function() {
+        try { iframe.contentWindow.scrollTo(0, pdfScrollTop); } catch(e){}
+    }, 300);
+};
+// 图片弹窗 open image modal
+function openJPG(imagePath) {
+    // 创建图片弹窗 create image modal
+    const imageModal = document.createElement('div');
+    imageModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 1000; display: flex; justify-content: center; align-items: center;';
+    const imageContainer = document.createElement('div');
+    imageContainer.style.cssText = 'position: relative; max-width: 90vw; max-height: 90vh; background: #fff; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); overflow: auto;';
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '关闭 Close';
+    closeButton.style.cssText = 'position: absolute; top: 10px; right: 10px; padding: 5px 10px; background: #003366; color: #fff; border: none; cursor: pointer;';
+    closeButton.onclick = function() { document.body.removeChild(imageModal); };
+    const image = document.createElement('img');
+    image.src = imagePath;
+    image.style.cssText = 'max-width: 100%; max-height: 80vh; display: block; margin: 30px auto 10px;';
+    imageContainer.appendChild(closeButton);
+    imageContainer.appendChild(image);
+    imageModal.appendChild(imageContainer);
+    document.body.appendChild(imageModal);
+    return false;
+}
+</script>
+</body>
+</html> 

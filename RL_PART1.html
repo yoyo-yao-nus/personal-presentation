@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yao's Presentation</title>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+        </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Times New Roman', serif;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            padding: 50px;
+            box-sizing: border-box;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #005599;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .figure-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            border: 2px dashed #999;
+            font-style: italic;
+            color: #666;
+        }
+        .pdf-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+        .pdf-link:hover {
+            background-color: #004488;
+        }
+        .figure-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+        .figure-link:hover {
+            background-color: #004488;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
+        .nav-btn:hover {
+            background-color: #004488;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            color: #666;
+            font-family: Arial, sans-serif;
+            background: rgba(255,255,255,0.85);
+            border-radius: 8px;
+            padding: 4px 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            pointer-events: none;
+        }
+        ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        p {
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div id="pdfBoxBtn" style="position: fixed; top: 20px; right: 24px; z-index: 2000;">
+    <a href="#" class="pdf-link" style="border-radius: 0; border: 1.5px solid #003366; background: #fff; color: #003366; font-weight: bold; box-shadow: 0 2px 6px rgba(0,0,0,0.07); padding: 8px 18px;" onclick="openPDF('books/rltheorybook_AJKS.pdf')">view book</a>
+</div>
+<!--
+    使用说明 Usage:
+    1. 每一页幻灯片用 <div class="slide" id="slideN"> 包裹内容，N为页码。
+    2. 只需复制 .slide 块并修改内容即可添加新页面。
+    3. 支持数学公式、图片、PDF弹窗。
+    4. 支持键盘左右键/按钮切换页面。
+    5. 手机端自适应。
+-->
+
+<!-- Slide 1 示例 Example -->
+
+<div class="slide active" id="slide1" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Ch1 Markov Decision Process</h1>
+        \(M=(S,A,P,r,\gamma,\mu)\)
+        <h2>Bellman Consistency</h2>
+        <h2>Bellman Optimality</h2>
+        <li>Theorem 1.7 Existence of the Optimal Policy</li>
+        <ul>
+            <li>Markov property</li>
+            <li>Lar of iterated expectations</li>
+        </ul>
+        <li>Theorem 1.8 Bellman Optimality Equation</li>
+        <ul><li>The fixed point of the operator \(\mathcal{T}\) is the optimal point, by contraction property</li></ul>
+        <h2>Value Iteration</h2>
+        <li>Fixed-point problem</li>
+        <li>Lemma 1.11 Q-error Amplification</li>
+        <li>Lemma 1.12 Q-value Iteration Convergence</li>
+        <ul><li>proof via contraction</li></ul>
+        <h2>Policy Iteration</h2>
+        <li>Policy evaluation and policy improvement</li>
+        <h2>Advantages and the Performance Difference Lemma</h2>
+        <li>Advantage \(A^\pi(s,a)=Q^\pi(s,a)-V^\pi(s)\)</li>
+        <li>Lemma 1.16 Performance Difference Lemma</li>
+        <ul><li>telescoping argument</li></ul>
+         
+    </div>
+    <div class="slide-number">1/6</div>
+</div>
+
+<!-- Slide 2 示例 Example -->
+<div class="slide" id="slide2" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Ch3 Linear Bellman Completeness</h1>
+        <h2>LSVI Algorithm</h2>
+        <li>Solve least squares for \(\theta_h\) at each step \(h\)</li>
+        <li>Value Iteration on \(\hat\theta_h\)</li>
+        <li>Dynamic Programming from \(h=H-1\) to \(h=0\)</li>
+        <h2>D-optimal Design</h2>
+        <li>Use the D-optimal design to construct datasets</li>
+        <h2>Sample Complexity</h2>
+        <li>Lemma 3.4 If the Bellman Residual is small, then the greedy policies is already near optimal</li>
+        <ul>
+            <li>Induction from \(h=H\) to \(h=0\)</li>
+        </ul>
+        <li>Lemma 3.5 Proof that the \(\hat Q\) obtained from LSVI satisfy that the Bellman Residual is small</li>
+        <ul>
+            <li>Use standard result fro OLS</li>
+            <li>Union bound over all steps \(h\)</li>
+        </ul>
+        <li>Theorem 3.3 Sample Complexity of LSVI</li>
+        <ul><li>Apply Lemma 3.5 and Lemma 3.4</li></ul>
+        <h2>Offline RL: Offline Policy Evaluation</h2>
+        <li>LSPE for any policy \(\pi\), while the original LSVI is for a greedy policy</li>
+        <li>Theorem 3.9 Sample Complexity of LSPE under Offline Learning</li>
+        </div>
+    <div class="slide-number">2/6</div>
+</div>
+
+<div class="slide" id="slide3" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Ch6 Multi-Armed & Linear Bandits</h1>
+        <h2>UCB Algorithm</h2>
+        <li>Theorem 6.1 Regret Bound</li>
+        <li>Lemma 6.2 UCB: proof via Martingale difference sequence</li>
+        <h2>LinUCB Algorithm</h2>
+        <li>Theorem 6.3 Upper Bound</li>
+        <li>Theorem 6.4 Lower Bound</li>
+        </div>
+    <div class="slide-number">3/6</div>
+</div>
+
+<div class="slide" id="slide4" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Ch7 Strategic Exploration in Tabular MDPs</h1>
+        <h2>UCB-VI Algorithm</h2>
+        <li>Learn an emperical transition \(\hat P_h^k\) every episode</li>
+        <li>Value Iteration on \(\hat P_h^k\) and the UCB term \(r_h+b_h^k\)</li>
+        <li>Dynamic programming from \(h=H\) to \(h=0\)</li>
+        <li>Note: truncate \(\hat Q_h^k(s,a)\) by \(H\)</li>
+        <h2>Regret Bound & State-Action-wise Error</h2>
+        <li>Lemma 7.2 State-Action-wise model error</li>
+        <ul>
+            <li>1.Martingale Difference Sequence</li>
+            <li>2.Covering arugment: union bound over\(\epsilon\)-net</li>
+        </ul>
+        <li>Lemma 7.3 State-Action-wise averaged model error under \(V^*\)</li>
+        <ul><li>Together with Lemma 7.2 defined as an event \(\varepsilon_{model}\)</li></ul>
+        <li>Lemma 7.4 Optimism: effect of the reward bonus \(b_h^k\)</li>
+        <ul><li>Induction from \(h=H\) to \(h=0\)</li></ul>
+        <li>Theorem 7.1 Regret Bound of UCBVI</li>
+        <ul>
+            <li>1. Bound per-episode regret by optimism</li>
+            <li>2. Regret decomposition considering event \(\varepsilon_{model}\)</li>
+        </ul>
+        <h2>Improved Regret Bound</h2>
+        <li>Lemma 7.7 Improved version of Lemma 7.2</li>
+        <ul><li>Azume-Bernstein Inequality for martingale difference sequence</li></ul>
+        <li>Theorem 7.6 Improved Regret Bound for UCBVI</li>
+        <ul>
+            <li>1. Refine bound for per-episode regret</li>
+            <li>2. Regret decomposition</li>
+        </ul>
+    </div>
+    <div class="slide-number">4/6</div>
+</div>
+
+<div class="slide" id="slide5" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Ch8 Linear Parameterized MDPs</h1>
+        Finite horizon,time-dependent transition, episodic setting.
+        <h2>Linear MDPs</h2>
+        <li>linear reward & linear transition</li>
+        <li>known paramter \(\theta_h\) for reward, unknwon parameter \(\mu\) for transition probability</li>
+        <h2>Learn Transition: Ridge Regression</h2>
+        <li>intuition of \(\Lambda\)</li>
+        <li>learn \(\mu^*\) via regressinon from \(\phi(s_h^i,a_h^i)\) to \(\delta(s_{h+1}^i)\)</li>
+        <li>\(\delta(s)^\top V=V(s)\)</li>
+        <li>Lemma 8.3 Decomposition of Difference \(\hat \mu_h-\mu_h^*\)</li>
+        <li>Lemma 8.4 Bound for noise term</li>
+        <ul><li>self-normalized vector-valued Martingale Bound</li></ul>
+        <h2>Uniform Convergence: \(\epsilon\)-cover Net</h2>
+        <li>Lemma 8.6 Bound for size of \(\epsilon\)-cover net</li>
+        <ul><li>decomposition of \(|f(s)-\hat f(s)|\)</li></ul>
+        <li>Lemma 8.7 Uniform convergence result</li>
+        <ul>
+            <li>Lemma 8.4 and union bound over \(\mathcal{N}_\epsilon\)</li>
+            <li>bound for noise term considering an arbitrary \(f\in\mathcal{F}\): proof via definition of \(\epsilon\)-cover</li>
+            <li>Lemma 8.3 decomposition of error term</li>
+        </ul>
+        <!-- 对f附近的所有f'做一个union bound，用到了f邻域的大小，通过\epsilon-cover net得出来的 -->
+        <h2>UCB-VI for Linear MDPs</h2>
+        <li>Learn \(\hat\mu_h^n\) every episode, then perform a truncated value iteration</li>
+        <li>Lemma 8.8 Bound for \(l_2\) norm of \(\omega\)</li>
+        <li>Theorem 8.9 Regret Bound</li>
+        <ul>
+            <li>1. Optimism</li>
+            <li>2. Upper bound per-epsode regret and sum over episodes</li>
+            <li>3. Lemma 8.12 Elliptical Potential</li>
+            <li>4. Regret decomposition: define the result from Lemma 8.7 as an event \(\varepsilon_{model}\)</li>
+        </ul>
+    </div>
+    <div class="slide-number">5/6</div>
+</div>
+
+<div class="slide" id="slide6" style="height: 250vh; ">
+    <div class="header">Yao's Presentation</div>
+    <div class="slide-content">
+        <h1>Ch11 Policy Gradient</h1>
+        <li>Parameter \(\theta\) for policies</li>
+        <h2>Three Expression of Policy Gradients</h2>
+        <li>Theorem 11.4 Policy Gradient</li>
+        <h2>Gradient Ascent</h2>
+        <li>Non-convex optimization problem</li>
+        <li>Converge to stationary points</li>
+        <h2>Monte Carlo Estimation and Stochastic Gradient Ascent</h2>
+        <li>Use Monte Carlo simulation to obtain unbiased estimated gradient and \(\pi\)</li>
+        <li>Lemma 11.7 Unbiased gradient estimate using Monte Carlo estimation</li>
+        <li>Lemma 11.8 Stochastic convergence to stationary points</li>
+        <h2>Unbiased gradient estimate with Variance Reduction</h2>
+        <li>Applied when the variance is often large in practice</li>
+    </div>
+    <div class="slide-number">6/6</div>
+</div>
+
+<!-- 导航按钮 Navigation buttons -->
+<div class="navigation">
+    <button class="nav-btn" onclick="prevSlide()">Prev</button>
+    <button class="nav-btn" onclick="nextSlide()">Next</button>
+</div>
+
+<!-- PDF 查看弹窗 PDF modal -->
+<div id="pdfModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000;">
+    <div id="pdfDialog" style="position: relative; width: 80%; height: 80%; margin: 5% auto; background-color: white; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <button onclick="closePDF()" style="position: absolute; top: 10px; right: 10px; padding: 5px 10px; background-color: #003366; color: white; border: none; cursor: pointer;">Close</button>
+        <button onclick="shrinkPDF()" style="position: absolute; top: 10px; right: 80px; padding: 5px 10px; background-color: #eee; color: #003366; border: 1px solid #003366; cursor: pointer;">Minimize</button>
+        <iframe id="pdfViewer" style="width: 100%; height: 90%; border: none; margin-top: 40px;"></iframe>
+    </div>
+</div>
+<!-- 收缩后的小按钮 -->
+<div id="pdfShrinkBtn" style="display:none; position: fixed; top: 50%; right: 0; z-index: 2001; background: #003366; color: #fff; border-radius: 8px 0 0 8px; padding: 12px 8px; cursor: pointer; font-weight: bold;">PDF</div>
+
+<script>
+// 当前页码 current slide number
+let currentSlide = 1;
+const totalSlides = document.querySelectorAll('.slide').length;
+
+// 显示指定页码 show slide by number
+function showSlide(slideNumber) {
+    document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+    });
+    document.getElementById('slide' + slideNumber).classList.add('active');
+    currentSlide = slideNumber;
+    // 更新页码 update slide number
+    document.querySelectorAll('.slide-number').forEach((el, idx) => {
+        el.textContent = (idx+1) + '/' + totalSlides;
+    });
+}
+// 下一页 next
+function nextSlide() {
+    if (currentSlide < totalSlides) showSlide(currentSlide + 1);
+}
+// 上一页 prev
+function prevSlide() {
+    if (currentSlide > 1) showSlide(currentSlide - 1);
+}
+// 键盘左右键切换 keyboard navigation
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowRight') nextSlide();
+    else if (event.key === 'ArrowLeft') prevSlide();
+});
+let pdfScrollTop = 0;
+let pdfPathCache = '';
+
+function openPDF(pdfPath) {
+    const iframe = document.getElementById('pdfViewer');
+    document.getElementById('pdfModal').style.display = 'block';
+    document.getElementById('pdfShrinkBtn').style.display = 'none';
+    // 只在首次或切换文档时重载
+    if (pdfPathCache !== pdfPath) {
+        iframe.src = pdfPath;
+        pdfPathCache = pdfPath;
+        pdfScrollTop = 0;
+        iframe.onload = function() {
+            iframe.contentWindow.scrollTo(0, 0);
+        };
+    } else {
+        // 恢复滚动位置
+        iframe.onload = function() {
+            iframe.contentWindow.scrollTo(0, pdfScrollTop);
+        };
+        // 若已加载，直接滚动
+        setTimeout(function() {
+            try { iframe.contentWindow.scrollTo(0, pdfScrollTop); } catch(e){}
+        }, 300);
+    }
+    return false;
+}
+function closePDF() {
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfViewer').src = '';
+    pdfPathCache = '';
+    pdfScrollTop = 0;
+}
+function shrinkPDF() {
+    // 记录滚动位置
+    try {
+        const iframe = document.getElementById('pdfViewer');
+        pdfScrollTop = iframe.contentWindow.scrollY || iframe.contentWindow.document.documentElement.scrollTop || 0;
+    } catch(e) { pdfScrollTop = 0; }
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfShrinkBtn').style.display = 'block';
+}
+document.getElementById('pdfShrinkBtn').onclick = function() {
+    document.getElementById('pdfModal').style.display = 'block';
+    document.getElementById('pdfShrinkBtn').style.display = 'none';
+    // 恢复滚动位置
+    const iframe = document.getElementById('pdfViewer');
+    iframe.onload = function() {
+        iframe.contentWindow.scrollTo(0, pdfScrollTop);
+    };
+    setTimeout(function() {
+        try { iframe.contentWindow.scrollTo(0, pdfScrollTop); } catch(e){}
+    }, 300);
+};
+// 图片弹窗 open image modal
+function openJPG(imagePath) {
+    // 创建图片弹窗 create image modal
+    const imageModal = document.createElement('div');
+    imageModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 1000; display: flex; justify-content: center; align-items: center;';
+    const imageContainer = document.createElement('div');
+    imageContainer.style.cssText = 'position: relative; max-width: 90vw; max-height: 90vh; background: #fff; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); overflow: auto;';
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '关闭 Close';
+    closeButton.style.cssText = 'position: absolute; top: 10px; right: 10px; padding: 5px 10px; background: #003366; color: #fff; border: none; cursor: pointer;';
+    closeButton.onclick = function() { document.body.removeChild(imageModal); };
+    const image = document.createElement('img');
+    image.src = imagePath;
+    image.style.cssText = 'max-width: 100%; max-height: 80vh; display: block; margin: 30px auto 10px;';
+    imageContainer.appendChild(closeButton);
+    imageContainer.appendChild(image);
+    imageModal.appendChild(imageContainer);
+    document.body.appendChild(imageModal);
+    return false;
+}
+</script>
+</body>
+</html> 

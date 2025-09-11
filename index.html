@@ -159,6 +159,10 @@
   <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(1)">Presentation 1</div>
   <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(2)">Presentation 2</div>
   <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(3)">Presentation 3</div>
+  <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(4)">Presentation 4</div>
+  <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(5)">Presentation 5</div>
+  <div style="padding: 18px 24px; font-size: 1.1em; color: #003366; font-weight: bold; cursor: pointer;" onclick="switchPresentation(6)">Presentation 6</div>
+  
 </div>
 <div id="sideMenuOverlay" style="display:none; position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.1); z-index: 3099;" onclick="closeSideMenu()"></div>
 
@@ -496,6 +500,18 @@
 <iframe id="presentation3Frame" src="Bandits_partIV.V.html" style="width:100vw; height:100vh; border:none; margin:0; padding:0; display:block;"></iframe>
 </div>
 
+<div id="presentation4" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; margin:0; padding:0; border:none; z-index:2000;">
+    <iframe id="presentation3Frame" src="Bandits_partV.LinUCB.html" style="width:100vw; height:100vh; border:none; margin:0; padding:0; display:block;"></iframe>
+    </div>
+
+<div id="presentation5" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; margin:0; padding:0; border:none; z-index:2000;">
+    <iframe id="presentation3Frame" src="BAI_TS.html" style="width:100vw; height:100vh; border:none; margin:0; padding:0; display:block;"></iframe>
+    </div>
+
+<div id="presentation6" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; margin:0; padding:0; border:none; z-index:2000;">
+    <iframe id="presentation3Frame" src="RL_PART1.html" style="width:100vw; height:100vh; border:none; margin:0; padding:0; display:block;"></iframe>
+    </div>
+
     <script>
         let currentSlide = 1;
         const totalSlides = 10;
@@ -678,6 +694,10 @@
           document.getElementById('presentation1').style.display = idx === 1 ? '' : 'none';
           document.getElementById('presentation2').style.display = idx === 2 ? '' : 'none';
           document.getElementById('presentation3').style.display = idx === 3 ? '' : 'none';
+          document.getElementById('presentation4').style.display = idx === 4 ? '' : 'none';
+          document.getElementById('presentation5').style.display = idx === 5 ? '' : 'none';
+          document.getElementById('presentation6').style.display = idx === 6 ? '' : 'none';
+          
           closeSideMenu();
           if(idx === 1) {
             // 重置slide到第一页
